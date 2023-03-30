@@ -44,15 +44,15 @@ define('url', "https://api.telegram.org/bot6206746489:AAFtDzCxZrUZiqddNBcptmg72l
 $chat_id = '1021477629';
 
 
-if (isset($_POST['submit'])) {
+if (isset($_GET['submit'])) {
 
-    $name = $_POST['name'];
+    $name = $_GET['name'];
 
-    $email = $_POST['email'];
+    $email = $_GET['email'];
 
-    $subject = $_POST['subject'];
+    $subject = $_GET['subject'];
 
-    $message = $_POST['message'];
+    $message = $_GET['message'];
 
     $message = urlencode("Name:" . $name . "\nEmail: " . $email . "\nSubject:" . $subject . "\nMessage: " . $message);
 
