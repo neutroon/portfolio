@@ -44,7 +44,7 @@ define('url', "https://api.telegram.org/bot6206746489:AAFtDzCxZrUZiqddNBcptmg72l
 $chat_id = '1021477629';
 
 
-// if (isset($_POST['submit'])) {
+if (isset($_POST['submit'])) {
 
     $name = $_POST['name'];
 
@@ -58,6 +58,6 @@ $chat_id = '1021477629';
 
     file_get_contents(url . "sendmessage?chat_id=" . $chat_id . "&text=" . $message . "&parse_mode=HTML");
 
-// }
+}
 // header('location: ../index.html');
 ?>
