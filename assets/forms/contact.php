@@ -57,5 +57,5 @@
     file_get_contents(url . "sendmessage?chat_id=" . $chat_id . "&text=" . $message . "&parse_mode=HTML");
 
 }
-header('location: ../../index.html');
+header("Location: http://".$_SERVER['HTTP_HOST']);
 ?>
