@@ -39,12 +39,10 @@
 
   // echo $contact->send();
 
+  if (isset($_POST['submit'])) {
 
-define('url', "https://api.telegram.org/bot6206746489:AAFtDzCxZrUZiqddNBcptmg72lGnRF0BVrE/");
-$chat_id = '1021477629';
-
-
-if (isset($_POST['submit'])) {
+  define('url', "https://api.telegram.org/bot6206746489:AAFtDzCxZrUZiqddNBcptmg72lGnRF0BVrE/");
+  $chat_id = '1021477629';
 
     $name = $_POST['name'];
 
@@ -59,5 +57,5 @@ if (isset($_POST['submit'])) {
     file_get_contents(url . "sendmessage?chat_id=" . $chat_id . "&text=" . $message . "&parse_mode=HTML");
 
 }
-// header('location: ../index.html');
+header('location: ../../index.html');
 ?>
