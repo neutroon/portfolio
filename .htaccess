@@ -1,1 +1,1 @@
-RewriteEngine OnRewriteCond %{HTTPS} offRewriteRule ^(.*)$ https://example.com/$ [L,R=301]
+RewriteEngine OnRewriteCond %{HTTPS} offRewriteRule ^(.*)$ https://hmansour.me/$ [L,R=301]
