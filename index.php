@@ -44,11 +44,10 @@ echo "<!DOCTYPE html>
         <img src='assets/img/profile-img.jpg' alt='' class='img-fluid rounded-circle'>
         <h1 class='text-light'><a href='index.php'>Hesham Mansour</a></h1>
         <div class='social-links mt-3 text-center'>
-          <a href='#' class='twitter'><i class='bx bxl-twitter'></i></a>
-          <a href='#' class='facebook'><i class='bx bxl-facebook'></i></a>
-          <a href='#' class='instagram'><i class='bx bxl-instagram'></i></a>
-          <!-- <a href='#' class='google-plus'><i class='bx bxl-skype'></i></a> -->
-          <a href='#' class='linkedin'><i class='bx bxl-linkedin'></i></a>
+          <a href='https://twitter.com/HeShAm_NaBiL_' class='twitter'><i class='bx bxl-twitter'></i></a>
+          <a href='https://m.facebook.com/heshamneutron' class='facebook'><i class='bx bxl-facebook'></i></a>
+          <a href='https://www.instagram.com/hesham_neutron' class='instagram'><i class='bx bxl-instagram'></i></a>
+          <a href='https://www.linkedin.com/in/heshamneu' class='linkedin'><i class='bx bxl-linkedin'></i></a>
         </div>
       </div>
 
