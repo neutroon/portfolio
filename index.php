@@ -1,5 +1,18 @@
-<?
-echo "<!DOCTYPE html>
+<?php
+include_once('config.php');
+$q_about = $db->prepare("SELECT * FROM about_section");
+$q_about->execute();
+$result_about = $q_about->fetch(PDO::FETCH_BOTH);
+
+$q_resume = $db->prepare("SELECT * FROM resume_section");
+$q_resume->execute();
+$result_resume = $q_resume->fetch(PDO::FETCH_BOTH);
+
+$q_services = $db->prepare("SELECT * FROM services_section");
+$q_services->execute();
+$result_services = $q_services->fetch(PDO::FETCH_BOTH);
+?>
+<!DOCTYPE html>
 <html lang='en'>
 
 <head>
@@ -31,7 +44,6 @@ echo "<!DOCTYPE html>
 </head>
 
 <body>
-
   <!-- ======= Mobile nav toggle button ======= -->
   <i class='bi bi-list mobile-nav-toggle d-xl-none'></i>
 
@@ -94,18 +106,18 @@ echo "<!DOCTYPE html>
             <div class='row'>
               <div class='col-lg-6'>
                 <ul>
-                  <li><i class='bi bi-chevron-right'></i> <strong>Birthday:</strong> <span>6 April 2001</span></li>
-                  <li><i class='bi bi-chevron-right'></i> <strong>Website:</strong> <span>www.example.com</span></li>
-                  <li><i class='bi bi-chevron-right'></i> <strong>Phone:</strong> <span>+20 12 0284 0018</span></li>
-                  <li><i class='bi bi-chevron-right'></i> <strong>City:</strong> <span>Cairo, EGYPT</span></li>
+                  <li><i class='bi bi-chevron-right'></i> <strong>Birthday:</strong><span><?php echo $result_about['birthday']; ?></span></li>
+                  <li><i class='bi bi-chevron-right'></i> <strong>Website:</strong><span><?php echo $result_about['website']; ?></span></li>
+                  <li><i class='bi bi-chevron-right'></i> <strong>Phone:</strong> <span><?php echo $result_about['phone']; ?></span></li>
+                  <li><i class='bi bi-chevron-right'></i> <strong>City:</strong> <span><?php echo $result_about['city']; ?></span></li>
                 </ul>
               </div>
               <div class='col-lg-6'>
                 <ul>
                   <!-- <li><i class='bi bi-chevron-right'></i> <strong>Age:</strong> <span>30</span></li> -->
                   <!-- <li><i class='bi bi-chevron-right'></i> <strong>Degree:</strong> <span>Master</span></li> -->
-                  <li><i class='bi bi-chevron-right'></i> <strong>Email:</strong> <span>nbilha161@gmail.com</span></li>
-                  <li><i class='bi bi-chevron-right'></i> <strong>Freelance:</strong> <span>Available</span></li>
+                  <li><i class='bi bi-chevron-right'></i> <strong>Email:</strong> <span><?php echo $result_about['email']; ?></span></li>
+                  <li><i class='bi bi-chevron-right'></i> <strong>Freelance:</strong> <span><?php echo $result_about['freelance']; ?></span></li>
                 </ul>
               </div>
             </div>
@@ -251,22 +263,22 @@ echo "<!DOCTYPE html>
 
         <div class='row'>
           <div class='col-lg-6' data-aos='fade-up'>
-            <h3 class='resume-title'>Sumary</h3>
+            <h3 class='resume-title'>Summary</h3>
             <div class='resume-item pb-0'>
-              <h4>Hesham Mansour</h4>
-              <p><em>I'm software engineering student who loves development websites, My latest projects is building a responsive web page with a dynamic navbar and building a weather APP <br> Skills: HTML, CSS, JS, PHP, MYSQL, SQL</em></p>
+              <h4><?php echo $result_resume['name']; ?></h4>
+              <p><?php echo $result_resume['summary']; ?></p>
               <ul>
-                <li>Masr Elgdida, Cairo, EGYPT</li>
-                <li>(20) 12-0284-0018</li>
-                <li>nbilha161@gmail.com</li>
+                <li><?php echo $result_resume['location']; ?></li>
+                <li><?php echo $result_resume['phone2']; ?></li>
+                <li><?php echo $result_resume['email2']; ?></li>
               </ul>
             </div>
 
             <h3 class='resume-title'>Education</h3>
             <div class='resume-item'>
               <h4>Software Engineering &amp; Information Technology</h4>
-              <h5>2019 - Present</h5>
-              <p><em>Bachelor of Software Engineering &amp; Information Technology</em></p>
+              <h5><?php echo $result_resume['time']; ?></h5>
+              <p><?php echo $result_resume['facts_about_education']; ?></p>
               <p>Egyptian Chinese University</p>
             </div>
             <div class='resume-item'>
@@ -282,34 +294,19 @@ echo "<!DOCTYPE html>
               <h4>Udacity</h4>
               <h5>2020 - 2021</h5>
               <p><em>Scholarship</em></p>
-              <ul>
-                <li>Lead in the design, development, and implementation of the graphic, layout, and production communication materials</li>
-                <li>Delegate tasks to the 7 members of the design team and provide counsel on all aspects of the project. </li>
-                <li>Supervise the assessment of all graphic materials in order to ensure quality and accuracy of the design</li>
-                <li>Oversee the efficient use of production project budgets ranging from $2,000 - $25,000</li>
-              </ul>
+              <ul><?php echo $result_resume['facts_about_udacity']; ?></ul>
             </div>
             <div class='resume-item'>
               <h4>Egyptian Chinese University</h4>
               <h5>2021 - 2022</h5>
               <p><em>training</em></p>
-              <ul>
-                <li>Lead in the design, development, and implementation of the graphic, layout, and production communication materials</li>
-                <li>Delegate tasks to the 7 members of the design team and provide counsel on all aspects of the project. </li>
-                <li>Supervise the assessment of all graphic materials in order to ensure quality and accuracy of the design</li>
-                <li>Oversee the efficient use of production project budgets ranging from $2,000 - $25,000</li>
-              </ul>
+              <ul><?php echo $result_resume['facts_about_university']; ?></ul>
             </div>
             <div class='resume-item'>
               <h4>Route</h4>
               <h5>2023 - 2024</h5>
               <p><em>Diploma</em></p>
-              <ul>
-                <li>Developed numerous marketing programs (logos, brochures,infographics, presentations, and advertisements).</li>
-                <li>Managed up to 5 projects or tasks at a given time while under pressure</li>
-                <li>Recommended and consulted with clients on the most appropriate graphic design</li>
-                <li>Created 4+ design presentations and proposals a month for clients and account managers</li>
-              </ul>
+              <ul><?php echo $result_resume['facts_about_route']; ?></ul>
             </div>
           </div>
         </div>
@@ -440,39 +437,39 @@ echo "<!DOCTYPE html>
 
         <div class='section-title'>
           <h2>Services</h2>
-          <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
+          <!-- <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p> -->
         </div>
 
         <div class='row'>
           <div class='col-lg-4 col-md-6 icon-box' data-aos='fade-up'>
             <div class='icon'><i class='bi bi-briefcase'></i></div>
-            <h4 class='title'><a href=''>Lorem Ipsum</a></h4>
-            <p class='description'>Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident</p>
+            <h4 class='title'><?php echo $result_services['services_1'];?></h4>
+            <p class='description'><?php echo $result_services['services_1_facts'];?></p>
           </div>
           <div class='col-lg-4 col-md-6 icon-box' data-aos='fade-up' data-aos-delay='100'>
             <div class='icon'><i class='bi bi-card-checklist'></i></div>
-            <h4 class='title'><a href=''>Dolor Sitema</a></h4>
-            <p class='description'>Minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat tarad limino ata</p>
+            <h4 class='title'><?php echo $result_services['services_2'];?></h4>
+            <p class='description'><?php echo $result_services['services_2_facts'];?></p>
           </div>
           <div class='col-lg-4 col-md-6 icon-box' data-aos='fade-up' data-aos-delay='200'>
             <div class='icon'><i class='bi bi-bar-chart'></i></div>
-            <h4 class='title'><a href=''>Sed ut perspiciatis</a></h4>
-            <p class='description'>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur</p>
+            <h4 class='title'><?php echo $result_services['services_3'];?></h4>
+            <p class='description'><?php echo $result_services['services_3_facts'];?></p>
           </div>
           <div class='col-lg-4 col-md-6 icon-box' data-aos='fade-up' data-aos-delay='300'>
             <div class='icon'><i class='bi bi-binoculars'></i></div>
-            <h4 class='title'><a href=''>Magni Dolores</a></h4>
-            <p class='description'>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+            <h4 class='title'><?php echo $result_services['services_4'];?></h4>
+            <p class='description'><?php echo $result_services['services_4_facts'];?></p>
           </div>
           <div class='col-lg-4 col-md-6 icon-box' data-aos='fade-up' data-aos-delay='400'>
             <div class='icon'><i class='bi bi-brightness-high'></i></div>
-            <h4 class='title'><a href=''>Nemo Enim</a></h4>
-            <p class='description'>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque</p>
+            <h4 class='title'><?php echo $result_services['services_5'];?></h4>
+            <p class='description'><?php echo $result_services['services_5_facts'];?></p>
           </div>
           <div class='col-lg-4 col-md-6 icon-box' data-aos='fade-up' data-aos-delay='500'>
             <div class='icon'><i class='bi bi-calendar4-week'></i></div>
-            <h4 class='title'><a href=''>Eiusmod Tempor</a></h4>
-            <p class='description'>Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi</p>
+            <h4 class='title'><?php echo $result_services['services_6'];?></h4>
+            <p class='description'><?php echo $result_services['services_6_facts'];?></p>
           </div>
         </div>
 
@@ -485,7 +482,7 @@ echo "<!DOCTYPE html>
 
         <div class='section-title'>
           <h2>Testimonials</h2>
-          <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
+          <!-- <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p> -->
         </div>
 
         <div class='testimonials-slider swiper' data-aos='fade-up' data-aos-delay='100'>
@@ -582,17 +579,21 @@ echo "<!DOCTYPE html>
                 <p>Masr Elgedida, Cairo</p>
               </div>
 
-              <a href='mailto:nbilha161@gmail.com'><div class='email'>
-                <i class='bi bi-envelope'></i>
-                <h4>Email:</h4>
-                <p>nbilha161@gmail.com</p>
-              </div></a>
+              <a href='mailto:nbilha161@gmail.com'>
+                <div class='email'>
+                  <i class='bi bi-envelope'></i>
+                  <h4>Email:</h4>
+                  <p>nbilha161@gmail.com</p>
+                </div>
+              </a>
 
-              <a href='tel:+201202840018'><div class='phone'>
-                <i class='bi bi-phone'></i>
-                <h4>Call:</h4>
-                <p>+20 12 0284 0018</p>
-              </div></a>
+              <a href='tel:+201202840018'>
+                <div class='phone'>
+                  <i class='bi bi-phone'></i>
+                  <h4>Call:</h4>
+                  <p>+20 12 0284 0018</p>
+                </div>
+              </a>
 
               <iframe src='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3548.491787891309!2d31.321827455307865!3d30.109702073305172!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14581590b1fb43ad%3A0x40e27fab838fd560!2zMzcg2YXYrdmF2K8g2KfZhNi52YjYp9iv2YTZitiMINin2YTYstmK2KrZiNmGINin2YTYqNit2LHZitip2Iwg2YLYs9mFINin2YTYstmK2KrZiNmG2Iwg2YXYrdin2YHYuNipINin2YTZgtin2YfYsdip4oCsIDQ1MjE0NjU!5e0!3m2!1sar!2seg!4v1680191310589!5m2!1sar!2seg' frameborder='0' style='border:0; width: 100%; height: 290px;' allowfullscreen></iframe>
             </div>
@@ -600,9 +601,9 @@ echo "<!DOCTYPE html>
           </div>
 
           <div class='col-lg-7 mt-5 mt-lg-0 d-flex align-items-stretch'>
-          <iframe name='dummyframe' id='dummyframe' style='display: none;'></iframe>
+            <iframe name='dummyframe' id='dummyframe' style='display: none;'></iframe>
 
-            <form action='assets/forms/contact.php' method='post' role='form' class='php-email-form' target='dummyframe'>
+            <form action='assets/forms/contact.php' method='post' role='form' id="email-form" class='php-email-form' target='dummyframe'>
               <div class='row'>
                 <div class='form-group col-md-6'>
                   <label for='name'>Your Name</label>
@@ -619,14 +620,14 @@ echo "<!DOCTYPE html>
               </div>
               <div class='form-group'>
                 <label for='name'>Message</label>
-                <textarea class='form-control' name='message' rows='10' required></textarea>
+                <textarea class='form-control' name='message' id='message' rows='10' required></textarea>
               </div>
               <div class='my-3'>
                 <div class='loading'>Loading</div>
                 <div class='error-message'></div>
                 <div class='sent-message'>Your message has been sent. Thank you!</div>
               </div>
-              <div class='text-center'><button name='submit' type='submit'>Send Message</button></div>
+              <div class='text-center'><button name='submit' onclick="clear();" type='submit'>Send Message</button></div>
             </form>
           </div>
 
@@ -668,7 +669,8 @@ echo "<!DOCTYPE html>
 
   <!-- Template Main JS File -->
   <script src='assets/js/main.js'></script>
+  <script src='assets/js/script.js'></script>
 
 </body>
 
-</html>";
+</html>

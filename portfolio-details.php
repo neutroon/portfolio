@@ -1,5 +1,4 @@
-<?
-echo "<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang='en'>
 
 <head>
@@ -173,4 +172,4 @@ echo "<!DOCTYPE html>
 
 </body>
 
-</html>";
+</html>
