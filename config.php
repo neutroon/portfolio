@@ -1,5 +1,5 @@
 <?php
-    $dsn = 'mysql:host=localhost;dbname=portfolio';
+    $dsn = 'pgsql:host=localhost;dbname=portfolio';
     $usrName = 'root';
     $pass = '';
 
