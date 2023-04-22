@@ -11,6 +11,6 @@ RewriteRule ^(.*)$ $1.php [NC,L]
 <Files dashboard.php>
 AuthType Basic 
 AuthName "My Protected Folder" 
-AuthUserFile /var/www/www.hmansour.me/.htpasswd
+AuthUserFile ../var/www/www.hmansour.me/.htpasswd
 require valid-user
 </Files>
