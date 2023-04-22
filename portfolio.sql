@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 18, 2023 at 01:32 PM
+-- Generation Time: Apr 22, 2023 at 09:38 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -51,6 +51,7 @@ INSERT INTO `about_section` (`id`, `birthday`, `website`, `phone`, `city`, `emai
 --
 
 CREATE TABLE `resume_section` (
+  `id` int(11) NOT NULL,
   `name` text NOT NULL,
   `summary` text NOT NULL,
   `location` text NOT NULL,
@@ -67,8 +68,34 @@ CREATE TABLE `resume_section` (
 -- Dumping data for table `resume_section`
 --
 
-INSERT INTO `resume_section` (`name`, `summary`, `location`, `phone2`, `email2`, `time`, `facts_about_education`, `facts_about_udacity`, `facts_about_university`, `facts_about_route`) VALUES
-('Hesham Mansour Mohamed', '<em>I\'m software engineering student who loves development websites, My latest projects is building a responsive web page with a dynamic navbar and building a weather APP <br> Skills: HTML, CSS, JS, PHP, MYSQL, SQL</em>', 'Masr Elgdida, Cairo, EGYPT', '(20) 12-0284-0018', 'nbilha161@gmail.com', '2019 - Present', '<em>Bachelor of Software Engineering &amp; Information Technology</em>', '   <li>Lead in the design, development, and implementation of the graphic, layout, and production communication materials</li>\r\n                <li>Delegate tasks to the 7 members of the design team and provide counsel on all aspects of the project. </li>\r\n                <li>Supervise the assessment of all graphic materials in order to ensure quality and accuracy of the design</li>\r\n                <li>Oversee the efficient use of production project budgets ranging from $2,000 - $25,000</li>\r\n             ', '<li>Lead in the design, development, and implementation of the graphic, layout, and production communication materials</li>\r\n                <li>Delegate tasks to the 7 members of the design team and provide counsel on all aspects of the project. </li>\r\n                <li>Supervise the assessment of all graphic materials in order to ensure quality and accuracy of the design</li>\r\n                <li>Oversee the efficient use of production project budgets ranging from $2,000 - $25,000</li>\r\n              ', '<li>Developed numerous marketing programs (logos, brochures,infographics, presentations, and advertisements).</li>\r\n                <li>Managed up to 5 projects or tasks at a given time while under pressure</li>\r\n                <li>Recommended and consulted with clients on the most appropriate graphic design</li>\r\n                <li>Created 4+ design presentations and proposals a month for clients and account managers</li>\r\n              ');
+INSERT INTO `resume_section` (`id`, `name`, `summary`, `location`, `phone2`, `email2`, `time`, `facts_about_education`, `facts_about_udacity`, `facts_about_university`, `facts_about_route`) VALUES
+(1, 'Hesham Mansour Mohamed', '<em>I\'m software engineering student who loves development websites, My latest projects is building a responsive web page with a dynamic navbar and building a weather APP <br> Skills: HTML, CSS, JS, PHP, MYSQL, SQL</em>', 'Masr Elgdida, Cairo, EGYPT', '(20) 12-0284-0018', 'nbilha161@gmail.com', '2019 - Present', '<em>Bachelor of Software Engineering & Information Technology</em>', '   <li>Lead in the design, development, and implementation of the graphic, layout, and production communication materials</li>                 <li>Delegate tasks to the 7 members of the design team and provide counsel on all aspects of the project. </li>                 <li>Supervise the assessment of all graphic materials in order to ensure quality and accuracy of the design</li>                 <li>Oversee the efficient use of production project budgets ranging from $2,000 - $25,000</li>              ', '<li>Lead in the design, development, and implementation of the graphic, layout, and production communication materials</li>                 <li>Delegate tasks to the 7 members of the design team and provide counsel on all aspects of the project. </li>                 <li>Supervise the assessment of all graphic materials in order to ensure quality and accuracy of the design</li>                 <li>Oversee the efficient use of production project budgets ranging from $2,000 - $25,000</li>               ', '<li>Developed numerous marketing programs (logos, brochures,infographics, presentations, and advertisements).</li>                 <li>Managed up to 5 projects or tasks at a given time while under pressure</li>                 <li>Recommended and consulted with clients on the most appropriate graphic design</li>                 <li>Created 4+ design presentations and proposals a month for clients and account managers</li>               ');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `section_control`
+--
+
+CREATE TABLE `section_control` (
+  `id` int(11) NOT NULL,
+  `home` varchar(50) NOT NULL,
+  `about` varchar(50) NOT NULL,
+  `facts` varchar(50) NOT NULL,
+  `skills` varchar(50) NOT NULL,
+  `resume` varchar(50) NOT NULL,
+  `portfolio` varchar(50) NOT NULL,
+  `services` varchar(50) NOT NULL,
+  `testimonials` varchar(50) NOT NULL,
+  `contact` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Dumping data for table `section_control`
+--
+
+INSERT INTO `section_control` (`id`, `home`, `about`, `facts`, `skills`, `resume`, `portfolio`, `services`, `testimonials`, `contact`) VALUES
+(1, 'on', 'on', '0', 'on', 'on', '0', '0', '0', 'on');
 
 -- --------------------------------------------------------
 
@@ -101,6 +128,30 @@ INSERT INTO `services_section` (`services_1`, `services_1_facts`, `services_2`, 
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `skills_section`
+--
+
+CREATE TABLE `skills_section` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `value` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Dumping data for table `skills_section`
+--
+
+INSERT INTO `skills_section` (`id`, `name`, `value`) VALUES
+(1, 'HTML', 100),
+(2, 'CSS', 95),
+(3, 'JAVASCRIPT', 90),
+(4, 'PHP', 85),
+(5, 'MYSQL/ SQL', 90),
+(6, 'WORDPRESS', 35);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `superAdmin`
 --
 
@@ -121,6 +172,24 @@ ALTER TABLE `about_section`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `resume_section`
+--
+ALTER TABLE `resume_section`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `section_control`
+--
+ALTER TABLE `section_control`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `skills_section`
+--
+ALTER TABLE `skills_section`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `superAdmin`
 --
 ALTER TABLE `superAdmin`
@@ -135,6 +204,24 @@ ALTER TABLE `superAdmin`
 --
 ALTER TABLE `about_section`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `resume_section`
+--
+ALTER TABLE `resume_section`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `section_control`
+--
+ALTER TABLE `section_control`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `skills_section`
+--
+ALTER TABLE `skills_section`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `superAdmin`
