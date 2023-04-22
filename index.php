@@ -4,6 +4,10 @@ $q_about = $db->prepare("SELECT * FROM about_section");
 $q_about->execute();
 $result_about = $q_about->fetch(PDO::FETCH_BOTH);
 
+$q_skills = $db->prepare("SELECT * FROM skills_section");
+$q_skills->execute();
+$result_skills = $q_skills->fetchAll();
+
 $q_resume = $db->prepare("SELECT * FROM resume_section");
 $q_resume->execute();
 $result_resume = $q_resume->fetch(PDO::FETCH_BOTH);
@@ -11,6 +15,11 @@ $result_resume = $q_resume->fetch(PDO::FETCH_BOTH);
 $q_services = $db->prepare("SELECT * FROM services_section");
 $q_services->execute();
 $result_services = $q_services->fetch(PDO::FETCH_BOTH);
+
+$q_secControl = $db->prepare("SELECT * FROM section_control");
+$q_secControl->execute();
+$result_secControl = $q_secControl->fetch(PDO::FETCH_BOTH);
+
 ?>
 <!DOCTYPE html>
 <html lang='en'>
@@ -71,22 +80,27 @@ $result_services = $q_services->fetch(PDO::FETCH_BOTH);
           <li><a href='#portfolio' class='nav-link scrollto'><i class='bx bx-book-content'></i> <span>Portfolio</span></a></li>
           <li><a href='#services' class='nav-link scrollto'><i class='bx bx-server'></i> <span>Services</span></a></li>
           <li><a href='#contact' class='nav-link scrollto'><i class='bx bx-envelope'></i> <span>Contact</span></a></li>
+          <li><a href='admin/dashboard' target="_blank" class='nav-link scrollto'><i class='bx bxs-wrench'></i> <span>Admin Panel</span></a></li>
         </ul>
       </nav><!-- .nav-menu -->
     </div>
   </header><!-- End Header -->
 
   <!-- ======= Hero Section ======= -->
+  <?php if($result_secControl['home']){?>
   <section id='hero' class='d-flex flex-column justify-content-center align-items-center'>
     <div class='hero-container' data-aos='fade-in'>
       <h1>Hesham</h1>
       <p>I'm <span class='typed' data-typed-items='Designer, Developer, Freelancer'></span></p>
     </div>
-  </section><!-- End Hero -->
+  </section>
+  <?php }?>
+  <!-- End Hero -->
 
   <main id='main'>
 
     <!-- ======= About Section ======= -->
+    <?php if($result_secControl['about']){?>
     <section id='about' class='about'>
       <div class='container'>
 
@@ -129,9 +143,12 @@ $result_services = $q_services->fetch(PDO::FETCH_BOTH);
         </div>
 
       </div>
-    </section><!-- End About Section -->
+    </section>
+    <?php }?>
+    <!-- End About Section -->
 
     <!-- ======= Facts Section ======= -->
+    <?php if($result_secControl['facts']){?>
     <section id='facts' class='facts'>
       <div class='container'>
 
@@ -177,9 +194,12 @@ $result_services = $q_services->fetch(PDO::FETCH_BOTH);
         </div>
 
       </div>
-    </section><!-- End Facts Section -->
+    </section>
+    <?php }?>
+    <!-- End Facts Section -->
 
     <!-- ======= Skills Section ======= -->
+    <?php if($result_secControl['skills']){?>
     <section id='skills' class='skills section-bg'>
       <div class='container'>
 
@@ -191,68 +211,24 @@ $result_services = $q_services->fetch(PDO::FETCH_BOTH);
         <div class='row skills-content'>
 
           <div class='col-lg-6' data-aos='fade-up'>
-
+            <?php foreach($result_skills as $skill){ ?>
             <div class='progress'>
-              <span class='skill'>HTML <i class='val'>100%</i></span>
+              <span class='skill'> <?= $skill['name'] ?><i class='val'><?= $skill['value'] ?>%</i></span>
               <div class='progress-bar-wrap'>
-                <div class='progress-bar' role='progressbar' aria-valuenow='100' aria-valuemin='0' aria-valuemax='100'></div>
+                <div class='progress-bar' role='progressbar' aria-valuenow='<?= $skill['value'] ?>' aria-valuemin='0' aria-valuemax='100'></div>
               </div>
             </div>
-
-            <div class='progress'>
-              <span class='skill'>CSS <i class='val'>90%</i></span>
-              <div class='progress-bar-wrap'>
-                <div class='progress-bar' role='progressbar' aria-valuenow='90' aria-valuemin='0' aria-valuemax='100'></div>
-              </div>
-            </div>
-
-            <div class='progress'>
-              <span class='skill'>JavaScript <i class='val'>75%</i></span>
-              <div class='progress-bar-wrap'>
-                <div class='progress-bar' role='progressbar' aria-valuenow='75' aria-valuemin='0' aria-valuemax='100'></div>
-              </div>
-            </div>
-
+            <?php }?>
           </div>
-
-          <div class='col-lg-6' data-aos='fade-up' data-aos-delay='100'>
-
-            <div class='progress'>
-              <span class='skill'>PHP <i class='val'>80%</i></span>
-              <div class='progress-bar-wrap'>
-                <div class='progress-bar' role='progressbar' aria-valuenow='80' aria-valuemin='0' aria-valuemax='100'></div>
-              </div>
-            </div>
-
-            <div class='progress'>
-              <span class='skill'>MYSQL/ SQL <i class='val'>85%</i></span>
-              <div class='progress-bar-wrap'>
-                <div class='progress-bar' role='progressbar' aria-valuenow='85' aria-valuemin='0' aria-valuemax='100'></div>
-              </div>
-            </div>
-
-            <div class='progress'>
-              <span class='skill'>WordPress <i class='val'>35%</i></span>
-              <div class='progress-bar-wrap'>
-                <div class='progress-bar' role='progressbar' aria-valuenow='35' aria-valuemin='0' aria-valuemax='100'></div>
-              </div>
-            </div>
-
-            <!-- <div class='progress'>
-              <span class='skill'>Photoshop <i class='val'>65%</i></span>
-              <div class='progress-bar-wrap'>
-                <div class='progress-bar' role='progressbar' aria-valuenow='65' aria-valuemin='0' aria-valuemax='100'></div>
-              </div>
-            </div> -->
-
-          </div>
-
         </div>
 
       </div>
-    </section><!-- End Skills Section -->
+    </section>
+    <?php }?>
+    <!-- End Skills Section -->
 
     <!-- ======= Resume Section ======= -->
+    <?php if($result_secControl['resume']){?>
     <section id='resume' class='resume'>
       <div class='container'>
 
@@ -312,9 +288,12 @@ $result_services = $q_services->fetch(PDO::FETCH_BOTH);
         </div>
 
       </div>
-    </section><!-- End Resume Section -->
+    </section>
+    <?php }?>
+    <!-- End Resume Section -->
 
     <!-- ======= Portfolio Section ======= -->
+    <?php if($result_secControl['portfolio']){?>
     <section id='portfolio' class='portfolio section-bg'>
       <div class='container'>
 
@@ -429,9 +408,12 @@ $result_services = $q_services->fetch(PDO::FETCH_BOTH);
         </div>
 
       </div>
-    </section><!-- End Portfolio Section -->
+    </section>
+    <?php }?>
+    <!-- End Portfolio Section -->
 
     <!-- ======= Services Section ======= -->
+    <?php if($result_secControl['services']){?>
     <section id='services' class='services'>
       <div class='container'>
 
@@ -474,9 +456,12 @@ $result_services = $q_services->fetch(PDO::FETCH_BOTH);
         </div>
 
       </div>
-    </section><!-- End Services Section -->
+    </section>
+    <?php }?>
+    <!-- End Services Section -->
 
     <!-- ======= Testimonials Section ======= -->
+    <?php if($result_secControl['testimonials']){?>
     <section id='testimonials' class='testimonials section-bg'>
       <div class='container'>
 
@@ -558,9 +543,12 @@ $result_services = $q_services->fetch(PDO::FETCH_BOTH);
         </div>
 
       </div>
-    </section><!-- End Testimonials Section -->
+    </section>
+    <?php }?>
+    <!-- End Testimonials Section -->
 
     <!-- ======= Contact Section ======= -->
+    <?php if($result_secControl['contact']){?>
     <section id='contact' class='contact'>
       <div class='container'>
 
@@ -634,7 +622,9 @@ $result_services = $q_services->fetch(PDO::FETCH_BOTH);
         </div>
 
       </div>
-    </section><!-- End Contact Section -->
+    </section>
+    <?php }?>
+    <!-- End Contact Section -->
 
   </main><!-- End #main -->
 
@@ -669,7 +659,6 @@ $result_services = $q_services->fetch(PDO::FETCH_BOTH);
 
   <!-- Template Main JS File -->
   <script src='assets/js/main.js'></script>
-  <script src='assets/js/script.js'></script>
 
 </body>
 

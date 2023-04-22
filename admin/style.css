@@ -1,0 +1,126 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+  /* include border and padding in element width and height */
+* {
+  box-sizing: border-box;
+}
+
+.container {
+    background-image: linear-gradient(to right,rgb(0, 0, 0)35%, rgb(255, 255, 255));
+    height: auto !important;
+    min-height: 100vh;
+    color: white;
+}
+
+/* Side Bar start----------------------- */
+#sidBarBtn {
+    position: fixed;
+    left: 0;
+    top: 20px;
+    z-index: 2;
+    background-color: transparent;
+    transition: ease-in-out .4s all;
+    padding: 10px;
+    border-color: #c7d0c5;
+    transform: rotate(45deg);
+    border-width: 5px 5px 0px 0px;
+}
+
+#sidBar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 0px;
+    z-index: 1;
+    height: 100vh;
+    background-image: linear-gradient(to left, black, white);
+    transition: ease-in-out .4s all;
+    overflow: hidden;
+    white-space: nowrap;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.list {
+    color: #000000;
+}
+
+.list:hover {
+    color: #0000005e;
+}
+/* Side Bar end----------------------- */
+
+input[type=file] {
+    background-color: #149ddd;
+    border: none;
+    border-radius: 0px 30px 0px 30px;
+    width: 100%;
+    margin: 10px 0px 10px 0px;
+    color: #0000005e;
+    /* transition: ease-in-out 1s all; */
+    height: 35px;
+}
+input[type=file]::file-selector-button {
+    background-color:#18d26e;
+    width: 50%;
+    border: none;
+    border-radius: 0px 10px 10px 0px;
+    cursor: pointer;
+color: #0000005e;
+    /* transition: ease-in-out 1s all; */
+    height: 35px;
+}
+
+input[type=file]::file-selector-button:hover {
+    color: #000000;
+}
+input[type=file]:hover {
+    animation-name: borderRotate;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    border-radius: 0px 30px 0px 30px;
+
+}
+.form-control{
+    border-radius: 0px 30px 0px 30px;
+}
+.form-control:hover {
+    animation-name: borderRotate;
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+@keyframes borderRotate {
+    0%{border-radius: 0px 30px 0px 30px;}
+    25%{border-radius: 30px 0px 30px 0px;}
+    50%{border-radius: 0px 30px 0px 30px;}
+    75%{border-radius: 30px 0px 30px 0px;}
+    100%{border-radius: 0px 30px 0px 30px;}
+}
+
+.fullHight {
+    height: 100vh;
+}
+
+a {
+    text-decoration: none;
+}
+
+
+@media (min-width: 700px) {
+#sidBarBtn {
+    display: none;
+}
+#sidBar {
+    width: 300px;
+}
+.fullHight {
+    width: calc(100% - 300px);
+    margin-right: 0px;
+}
+}
