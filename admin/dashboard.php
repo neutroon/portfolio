@@ -30,18 +30,21 @@ $result_secControl = $q_secControl->fetch(PDO::FETCH_BOTH);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href='../assets/vendor/boxicons/css/boxicons.min.css' rel='stylesheet'>
-    <link href='style.css' rel='stylesheet'>
+    <link href='css/style.css' rel='stylesheet'>
     <!-- <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script> -->
     <title>dashboard</title>
 </head>
 
 <body style="overflow-x: hidden;">
-
+<?php
+session_start();
+if(isset($_SESSION['user'])){
+?>
     <div id="sidBarContainer">
         <button id="sidBarBtn" onclick="openSidBar();"></button>
         <form action="" method="">
             <div id="sidBar">
-                <a class="list ms-4 fw-bolder font-monospace fs-4" href="../admin/"><i class='bx bxs-wrench'></i>Section Control</a>
+                <a class="list ms-4 fw-bolder font-monospace fs-4" href="dashboard"><i class='bx bxs-wrench'></i>Section Control</a>
                 <a class="list ms-4 fw-bolder font-monospace fs-4" href="?homesection=true">Home Picture</a>
                 <a class="list ms-4 fw-bolder font-monospace fs-4" href="?aboutsection=true">About Section</a>
                 <a class="list ms-4 fw-bolder font-monospace fs-4" href="?skillssection=true">Skills Section</a>
@@ -150,7 +153,7 @@ $result_secControl = $q_secControl->fetch(PDO::FETCH_BOTH);
                             <input id="skill_range" type="range" name="skill_value" class="form-range" value="<?= $skill['value']; ?>" disabled>
                             <span></span>
 
-                            <a href="test.php?id=<?= $skill['id'] ?>&name=<?= $skill['name'] ?>&value=<?= $skill['value']; ?>" class="btn btn-outline-success w-100 mt-4" name="edit_skills-section">Edit skill</a>
+                            <a href="test?id=<?= $skill['id'] ?>&name=<?= $skill['name'] ?>&value=<?= $skill['value']; ?>" class="btn btn-outline-success w-100 mt-4" name="edit_skills-section">Edit skill</a>
                             <a href="?id=<?= $skill['id'] ?>" class="btn btn-outline-danger w-100 mt-4" name="delete_skills-section">Delete</a>
                         </div>
                     <?php } ?>
@@ -165,7 +168,7 @@ $result_secControl = $q_secControl->fetch(PDO::FETCH_BOTH);
                                 ");
                     $sql->bindParam("id", $_GET['id']);
                     $sql->execute();
-                    echo '<script>window.location.href = "index.php";</script>';
+                    echo '<script>window.location.href = "index";</script>';
                 }
 
                 ?>
@@ -193,7 +196,7 @@ $result_secControl = $q_secControl->fetch(PDO::FETCH_BOTH);
                     $sql->bindParam("name", $_POST['skill_name']);
                     $sql->bindParam("value", $_POST['skill_value']);
                     $sql->execute();
-                    echo '<script>window.location.href = "index.php?skillssection=true";</script>';
+                    echo '<script>window.location.href = "index?skillssection=true";</script>';
                 }
                 ?>
 
@@ -447,10 +450,16 @@ $result_secControl = $q_secControl->fetch(PDO::FETCH_BOTH);
             
         } ?>
     </div>
-
+<?php
+}else {
+        echo 'inccorrect password or email';
+        print_r($_SESSION['user']);
+        header('location: login.php');
+        die('');
+    }?>
     <script src="../assets/vendor/bootstrap/js/bootstrap.js"></script>
     <script type="../text/javascript" src="assets/js/main.js"></script>
-    <script src='script.js'></script>
+    <script src='js/script.js'></script>
 
 </body>
 

@@ -28,7 +28,7 @@ function openSidBar() {                                                         
 }                                                                               //---
 //------------------------------------------------------------------------------//---
 
-// format input fields (prevent form add " and transfer it to ')
+// format input fields (prevent from add " and transfer it to ')
 let inputs = document.querySelectorAll('.form-control');
 inputs.forEach(input => {
 
