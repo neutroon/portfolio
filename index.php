@@ -615,7 +615,7 @@ $result_secControl = $q_secControl->fetch(PDO::FETCH_BOTH);
                 <div class='error-message'></div>
                 <div class='sent-message'>Your message has been sent. Thank you!</div>
               </div>
-              <div class='text-center'><button name='submit' onclick="clear();" type='button'>Send Message</button></div>
+              <div class='text-center'><button name='submit' onclick="clear();" type='submit'>Send Message</button></div>
             </form>
           </div>
 
