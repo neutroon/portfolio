@@ -264,7 +264,7 @@
 //clear text after submit
 let form = document.getElementById('email-form');
 form.onload = function () {
-  document.getElementById('name').preventDefault();
+  //document.getElementById('name').preventDefault();
   document.getElementById('email').value = '';
   document.getElementById('subject').value = '';
   document.getElementById('message').value = '';
