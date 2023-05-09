@@ -1,15 +1,15 @@
 <?php
     $dbType = 'pgsql';
-    $host = 'ec2-63-34-16-201.eu-west-1.compute.amazonaws.com';
-    $dbname = 'd4cc3kapo1oout';
-    $usrName = 'adtsanfuhvzfol';
-    $pass = '6f536f330e36cb54a9d9ec79118ce36398724b231f763290989145aa4e6ef965';
+    $host = 'ec2-99-80-210-37.eu-west-1.compute.amazonaws.com';
+    $dbname = 'dbluakp0keapqa';
+    $usrName = 'vcphgrkezcjuig';
+    $pass = 'c62352f18851a348c773676017d8685151638a611500a8a6c8db35afca04efd1';
 
 
 
-    $dsn = 'pgsql:host=ec2-63-34-16-201.eu-west-1.compute.amazonaws.com;dbname=d4cc3kapo1oout';
-    $usrName = 'adtsanfuhvzfol';
-    $pass = '6f536f330e36cb54a9d9ec79118ce36398724b231f763290989145aa4e6ef965';
+    $dsn = 'pgsql:host=ec2-99-80-210-37.eu-west-1.compute.amazonaws.com;dbname=dbluakp0keapqa';
+    $usrName = 'vcphgrkezcjuig';
+    $pass = 'c62352f18851a348c773676017d8685151638a611500a8a6c8db35afca04efd1';
 
     // $options = array (
     //     PDO::MYSQL_ATTR_INIT_COMMAND => 'SET usrNames utf8',
