@@ -598,7 +598,7 @@ $result_secControl = $q_secControl->fetch(PDO::FETCH_BOTH);
                   <input type='text' name='name' class='form-control' id='name' required>
                 </div>
                 <div class='form-group col-md-6'>
-                  <label for='name'>Your Email</label>
+                  <label for='name'>Contact info</label>
                   <input type='email' class='form-control' name='email' id='email' required>
                 </div>
               </div>
