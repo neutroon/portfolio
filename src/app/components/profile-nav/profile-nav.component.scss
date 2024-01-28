@@ -1,0 +1,23 @@
+.pi-chevron-circle-down{
+  font-size: 1.3rem;
+}
+
+.active-link::after{
+  content: '';
+  position: absolute;
+  width: 1.3rem;
+  height: .5rem;
+  border-radius: 0 0 5px 5px;
+  background-color: black;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.active-link{
+  color: black !important;
+}
+
+.link{
+position: relative;
+padding-top: 1rem;
+}

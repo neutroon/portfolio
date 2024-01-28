@@ -1,1 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
+figure{
+  margin: 0
+}
+.translate-middle{
+  transform: translateX(-50%) translateY(-50%);
+}

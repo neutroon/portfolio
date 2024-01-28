@@ -1,0 +1,81 @@
+<section>
+
+  <div class="pl-4 pr-4 header flex align-items-center justify-content-between">
+    <div class="Portfolio-name flex align-items-center">
+      <h2 class="pr-2 font-bold">Hesham Mansour</h2>
+      <i class="pi pi-chevron-circle-down"></i>
+    </div>
+    <span class="setting-icon">
+      <i class="fa-solid fa-2x fa-gear"></i>
+    </span>
+  </div>
+
+
+  <div class="pl-4 pr-4 about pb-3">
+    <div class="flex justify-content-between align-items-center text-center">
+      <figure class="relative max-w-10rem border-3 border-400 border-round-3xl m-0 p-1">
+        <img class="w-full border-round-2xl" src="./assets/imgs/portfolio.avif" alt="" srcset="">
+        <span class="icon inline-block flex justify-content-center align-items-center absolute bg-black-alpha-90 border-round-3xl text-white">
+          <i class="fa fa-plus"></i>
+        </span>
+      </figure>
+
+        <span>
+          <h3>23</h3>
+          <p>posts</p>
+        </span>
+
+        <span>
+          <h3>24.6k</h3>
+          <p>followers</p>
+        </span>
+
+        <span>
+          <h3>44</h3>
+          <p>following</p>
+        </span>
+
+    </div>
+
+    <div class="bio">
+      <h2>some text for bio</h2>
+      <p>another some text</p>
+    </div>
+
+
+    <div class="contact flex justify-content-center">
+      <p-button class="mr-4" [rounded]="true" label="Contact"></p-button>
+      <p-button label="Send message" [outlined]="true" [rounded]="true" severity="secondary" ></p-button>
+    </div>
+
+
+    <div class="links flex gap-2 mt-3">
+      @for (item of [1,2,3,4,5]; track $index) {
+
+        <figure class="relative w-5rem h-5rem border-3 border-400 border-circle m-0 p-1">
+          <img class="w-full h-full border-circle" src="./assets/imgs/portfolio.avif" alt="" srcset="">
+          <span class="icon inline-block flex justify-content-center align-items-center absolute bg-black-alpha-90 border-round-3xl text-white">
+            <i class="fa fa-plus"></i>
+          </span>
+        </figure>
+
+      }
+
+    </div>
+
+  </div>
+
+
+  <div class="nav border-top-1 border-300  pl-5 pr-5 flex justify-content-between">
+    <span class="link text-500" routerLink="/projects" routerLinkActive="active-link">
+      <i class="text-3xl pi pi-qrcode"></i>
+    </span>
+    <span class="link text-500" routerLink="/skills" routerLinkActive="active-link">
+      <i class="text-3xl pi pi-users"></i>
+    </span>
+    <span class="link text-500" routerLink="/experience" routerLinkActive="active-link">
+      <i class="text-3xl pi pi-bookmark"></i>
+    </span>
+  </div>
+
+</section>
