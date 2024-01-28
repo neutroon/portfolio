@@ -5,3 +5,13 @@ figure{
 .translate-middle{
   transform: translateX(-50%) translateY(-50%);
 }
+[role="button"]{
+  cursor: pointer;
+}
+
+h3{
+  margin-bottom: .1rem;
+}
+p{
+  margin-top: .1rem;
+}

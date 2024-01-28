@@ -2,16 +2,16 @@
 
     <div class="grid">
 
-      @for (item of [1,2,3,4,5,6]; track $index) {
+      @for (item of [1,2,3,4,5]; track $index) {
         <div class="col-6 md:col-4">
-          <div class="card h-15rem mt-3 relative">
+          <div class="card  mt-3 relative">
             <figure class="w-full h-full">
-              <img class="w-full h-full border-round-3xl" src="./assets/imgs/work1.jpg" alt="work">
+              <img class="w-full h-full border-round-3xl" [src]="'./assets/imgs/work'+item+'.jpg'" alt="work">
             </figure>
             <figcaption class="absolute top-0 left-0 bottom-0 right-0 flex align-items-end pb-3 pl-2 text-xs md:text-sm text-white">
               <p>Lorem, ipsum dolor.</p>
             </figcaption>
-            <button pButton pRipple label="Live Demo" class="p-button-danger shadow-none absolute top-100 left-50 text-xs white-space-nowrap translate-middle border-round-2xl"></button>
+            <button pButton pRipple label="Live Demo" icon="pi pi-external-link text-xs font-bold" iconPos="right" class="p-button-danger shadow-none absolute top-100 left-50 text-xs white-space-nowrap translate-middle border-round-2xl"></button>
           </div>
         </div>
       }
