@@ -13,4 +13,8 @@ import { ButtonModule } from 'primeng/button';
 })
 export class ProfileNavComponent {
 
+  showSettingMenu(){
+    console.log('hello');
+    
+  }
 }
