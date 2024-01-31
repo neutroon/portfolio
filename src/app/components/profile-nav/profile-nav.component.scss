@@ -25,6 +25,8 @@ padding-top: 1rem;
 
 
 .about{
+  transition: ease-out .3s all;
+
   .icon{
     width: 1.5rem;
     height: 1.5rem;
@@ -37,6 +39,7 @@ padding-top: 1rem;
       border: transparent .125rem solid;
     }
   }
+
 }
 
 .links{
@@ -67,4 +70,13 @@ button:active{
 }
 .nav{
   box-shadow: 0px 1px 5px -4px black inset;
+}
+
+
+
+
+
+#setting{
+  transform: translateY(-120%);
+  transition: all .3s ease-in-out;
 }
