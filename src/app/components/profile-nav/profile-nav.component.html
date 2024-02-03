@@ -2,7 +2,7 @@
 
   <div class="pl-4 pr-4 header shadow-1 flex align-items-center justify-content-between mb-2">
     <div role="button" class="Portfolio-name flex align-items-center">
-      <h2 class="pr-2 font-bold">Hesham Mansour</h2>
+      <h2 class="pr-2 font-bold">{{"header.heshammansour" | translate}}</h2>
       <i class="pi pi-chevron-circle-down"></i>
     </div>
     @if (!isSettingActive) {
@@ -31,14 +31,14 @@
   <div #about class="about pl-4 pr-4 pb-3">
     <div class="flex justify-content-between align-items-center text-center">
       <figure role="button" class="relative flex justify-content-center align-items-center w-5rem h-5rem border-round-3xl">
-        <img class="w-full border-round-3xl" src="./assets/imgs/work1.jpg" alt="work">
+        <img class="w-full border-round-3xl" src="./assets/imgs/betaLogo2.jpeg" alt="work">
         <span class="icon inline-block flex justify-content-center align-items-center absolute bg-black-alpha-90 border-round-3xl text-white">
           <i class="pi pi-plus"></i>
         </span>
       </figure>
 
         <span>
-          <h3>23</h3>
+          <h3>36</h3>
           <p class="text-sm text-500">Projects</p>
         </span>
 
@@ -56,29 +56,29 @@
 
 
     <div class="bio">
-      <h2>some text for bio</h2>
-      <p class="text-600">another some text</p>
+      <h2>Front end developer</h2>
+      <p class="text-600">Coordinate with the web development team to develop UI for client websites using Angular and much more ...</p>
     </div>
 
 
-    <div class="contact flex justify-content-center">
+    <div class="contacts flex justify-content-center">
 
-      <button pButton class="mr-4 flex-grow-1 border-round-2xl contact-btn shadow-none" label="Contact"></button>
-      <button pButton label="Send message" class="border-round-2xl flex-grow-1 shadow-none p-button-outlined p-button-secondary"></button>
+      <button pButton class="contact-btn mr-4 flex-grow-1 border-round-2xl shadow-none" label="Follow👀"></button>
+      <button pButton class="border-round-2xl p-button-outlined p-button-secondary shadow-none text-sm" label="Send message (soon)" disabled></button>
     </div>
 
 
     <div class="links flex gap-2 mt-3 overflow-x-scroll">
-      @for (item of [1,2,3,4,5]; track $index) {
+      @for (link of links; track $index) {
 
-        <div>
+        <a [href]="link.url" target="_blank">
           <figure role="button" class="relative w-5rem h-5rem border-circle">
-            <img class="w-full h-full border-circle" src="./assets/imgs/portfolio.avif" alt="social link" srcset="">
+            <img class="w-full h-full border-circle" [src]="link.img" alt="social link" srcset="">
           </figure>
           <figcaption>
-            <p class="text-xs text-center text-500">Followers</p>
+            <p class="text-xs text-center text-500">{{link.socialName}}</p>
           </figcaption>
-        </div>
+        </a>
 
       }
 
@@ -93,13 +93,13 @@
 
 
   <div class="nav border-top-1 border-300  pl-5 pr-5 flex justify-content-between">
-    <span role="button" class="link text-500" routerLink="/projects" routerLinkActive="active-link">
+    <span role="button" class="nav-link text-500" routerLink="/projects" routerLinkActive="active-link">
       <i class="text-3xl pi pi-qrcode"></i>
     </span>
-    <span role="button" class="link text-500" routerLink="/skills" routerLinkActive="active-link">
+    <span role="button" class="nav-link text-500" routerLink="/skills" routerLinkActive="active-link">
       <i class="text-3xl pi pi-users"></i>
     </span>
-    <span role="button" class="link text-500" routerLink="/experience" routerLinkActive="active-link">
+    <span role="button" class="nav-link text-500" routerLink="/experience" routerLinkActive="active-link">
       <i class="text-3xl pi pi-bookmark"></i>
     </span>
   </div>

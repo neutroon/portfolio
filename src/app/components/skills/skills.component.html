@@ -1,1 +1,12 @@
-<p>skills works!</p>
+<section class="pl-4 pr-4 pt-3 mb-4 card flex flex-column align-items-center">
+
+
+
+    <div class="mb-3 flex">
+        <button pButton type="button" label="Expand all" (click)="expandAll()" class="mr-2"></button>
+        <button pButton type="button" label="Collapse all" (click)="collapseAll()"></button>
+    </div>
+    <p-tree [value]="files" class="w-full"></p-tree>
+
+
+</section>
