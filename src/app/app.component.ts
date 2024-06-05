@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { ProfileNavComponent } from './components/profile-nav/profile-nav.component';
-import { TranslateService } from '@ngx-translate/core';
+import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
@@ -15,10 +15,23 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrl: './app.component.scss'
 })
 export class AppComponent implements OnInit{
-  constructor(private translate: TranslateService) {
-    translate.setDefaultLang('en');
 
-  }
+  constructor(private _TranslateService:TranslateService){}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
   blackBackground = [
@@ -49,6 +62,14 @@ ngOnInit(): void {
   console.log("%c if you found that, you are now lost on the internet. Email me at nbilha161@gmail.com to guide you 👽", this.lastConsole);
 
   }, 3000)
+
+  this._TranslateService.onLangChange.subscribe((event: LangChangeEvent) => {
+    console.log('lang changed to '+ event.lang );
+  })
+
+
+
+
 
   }
 

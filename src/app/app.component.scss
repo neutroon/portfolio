@@ -1,9 +1,14 @@
-.hideDesktopView{
-  background-image: linear-gradient( 135deg, #f9ce34 25%, #ee2a7b 66%, #6228d7 99%);
+.hideDesktopView {
+  background-image: linear-gradient(
+    135deg,
+    #f9ce34 25%,
+    #ee2a7b 66%,
+    #6228d7 99%
+  );
 }
 
 @media screen and (max-width: 900px) {
-  .hideDesktopView{
+  .hideDesktopView {
     display: none !important;
   }
 }

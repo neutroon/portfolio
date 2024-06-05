@@ -1,35 +1,38 @@
 /* You can add global styles to this file, and also import other style files */
-figure{
-  margin: 0
+figure {
+  margin: 0;
 }
-.translate-middle{
+.translate-middle {
   transform: translateX(-50%) translateY(-50%);
 }
-[role="button"]{
+[role="button"] {
   cursor: pointer;
 }
 
-h4{
-  margin-bottom: .1rem;
+h4 {
+  margin-bottom: 0.1rem;
 }
-p{
-  margin-top: .1rem;
+p {
+  margin-top: 0.1rem;
 }
 
-.p-selectbutton{
-  .p-button:focus{
+.p-selectbutton {
+  .p-button:focus {
     box-shadow: none;
   }
-  .p-button{
+  .p-button {
     border-radius: 10px;
     margin: 5px;
-    font-size: .7rem;
-    padding: .5rem 1rem;
+    font-size: 0.7rem;
+    padding: 0.5rem 1rem;
   }
 }
-a{
+a {
   text-decoration: none;
 }
 
-
-
+@media screen and (min-width: 900px) {
+  body {
+    overflow: hidden;
+  }
+}
