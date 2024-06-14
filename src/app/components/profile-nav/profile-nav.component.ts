@@ -5,11 +5,12 @@ import { SettingComponent } from '../setting/setting.component';
 import { PrimeNGConfig } from 'primeng/api';
 import { TranslateModule } from '@ngx-translate/core';
 import { GetDataService } from '../../shared/services/get-data.service';
-
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 @Component({
   selector: 'profile-nav',
   standalone: true,
   imports: [
+    NgxSkeletonLoaderModule,
     ButtonModule,
     RouterModule,
     SettingComponent,
@@ -29,8 +30,9 @@ export class ProfileNavComponent implements OnInit {
   title!: string;
   desc!: string;
 
-  isSettingActive: boolean = false;
   links!: any[];
+  isSettingActive: boolean = false;
+
   ngOnInit(): void {
     this._PrimeNGConfig.ripple = true;
 

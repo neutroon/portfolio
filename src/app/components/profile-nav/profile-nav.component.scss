@@ -1,85 +1,87 @@
-.pi-chevron-circle-down{
+.pi-chevron-circle-down {
   font-size: 1.3rem;
 }
 
-.active-link::after{
-  content: '';
+.active-link::after {
+  content: "";
   position: absolute;
   width: 1.3rem;
-  height: .5rem;
+  height: 0.5rem;
   border-radius: 0 0 5px 5px;
   background-color: black;
   top: 0;
   left: 50%;
   transform: translateX(-50%);
 }
-.active-link{
+.active-link {
   color: black !important;
 }
 
+.about {
+  transition: ease-out 0.3s all;
 
-
-.about{
-  transition: ease-out .3s all;
-
-  .icon{
+  .icon {
     width: 1.5rem;
     height: 1.5rem;
     left: 80%;
     top: 80%;
   }
-  figure{
-    background-image: linear-gradient(135deg, #f9ce34 25%, #ee2a7b 66%, #6228d7 99% );
-    img{
-      border: transparent .125rem solid;
+  figure {
+    background-image: linear-gradient(
+      135deg,
+      #f9ce34 25%,
+      #ee2a7b 66%,
+      #6228d7 99%
+    );
+    img {
+      border: transparent 0.125rem solid;
     }
   }
-
 }
-.nav-link{
+.nav-link {
   position: relative;
   padding-top: 1rem;
-  }
+}
 
-.links{
+.links {
   scrollbar-width: none;
   -ms-overflow-style: none;
-  &::-webkit-scrollbar{
+  &::-webkit-scrollbar {
     display: none;
   }
-  figure{
+  figure {
     min-width: 5rem;
   }
 }
 
-.contacts{
-
-  .contact-btn{
-    background-image: linear-gradient(135deg, #f9ce34 25%, #ee2a7b 66%, #6228d7 99% );
-     border: none;
-      border-radius: 10px;
-      color: white;
-      transition: all .3s ease-in-out;
-      background-size: 100% 100%;
+.contacts {
+  .contact-btn {
+    background-image: linear-gradient(
+      135deg,
+      #f9ce34 25%,
+      #ee2a7b 66%,
+      #6228d7 99%
+    );
+    border: none;
+    border-radius: 10px;
+    color: white;
+    transition: all 0.3s ease-in-out;
+    background-size: 100% 100%;
   }
-  .contact-btn:hover{
+  .contact-btn:hover {
     background-size: 300% 100%;
     background-position: -100px;
   }
-  button:active{
+  button:active {
     transform: translateY(5px);
   }
 }
 
-.nav{
+.nav {
   box-shadow: 0px 1px 5px -4px black inset;
 }
 
-
-
-
-
-#setting{
+#setting {
   transform: translateY(-120%);
-  transition: all .3s ease-in-out;
+  transition: all 0.3s ease-in-out;
 }

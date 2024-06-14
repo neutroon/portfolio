@@ -1,25 +1,15 @@
 <section>
-  <div
-    class="pl-4 pr-4 header shadow-1 flex align-items-center justify-content-between mb-2"
-  >
+  <div class="pl-4 pr-4 header shadow-1 flex align-items-center justify-content-between mb-2">
     <div role="button" class="Portfolio-name flex align-items-center">
       <h2 class="pr-2 font-bold">{{ "header.heshammansour" | translate }}</h2>
       <i class="pi pi-chevron-circle-down"></i>
     </div>
     @if (!isSettingActive) {
-    <span
-      (click)="showSettingMenu(about, setting)"
-      role="button"
-      class="setting-icon"
-    >
+    <span (click)="showSettingMenu(about, setting)" role="button" class="setting-icon">
       <i class="pi pi-cog text-2xl"></i>
     </span>
     } @if (isSettingActive) {
-    <span
-      (click)="hideSettingMenu(about, setting)"
-      role="button"
-      class="setting-icon"
-    >
+    <span (click)="hideSettingMenu(about, setting)" role="button" class="setting-icon">
       <i class="pi pi-arrow-right text-2xl"></i>
     </span>
     }
@@ -34,21 +24,14 @@
 
     <div class="overflow-hidden">
       <div #about class="about pl-4 pr-4 pb-3">
-        <div
-          class="flex justify-content-between align-items-center text-center"
-        >
-          <figure
-            role="button"
-            class="relative flex justify-content-center align-items-center w-5rem h-5rem border-round-3xl"
-          >
-            <img
-              class="w-full border-round-3xl"
-              [src]="profilePhoto"
-              alt="work"
-            />
+        <div class="flex justify-content-between align-items-center text-center">
+          <figure role="button"
+            class="relative flex justify-content-center align-items-center w-5rem h-5rem border-round-3xl">
+            @if (profilePhoto) {
+            <img class="w-full border-round-3xl" [src]="profilePhoto" alt="work" />
+            }
             <span
-              class="icon inline-block flex justify-content-center align-items-center absolute bg-black-alpha-90 border-round-3xl text-white"
-            >
+              class="icon inline-block flex justify-content-center align-items-center absolute bg-black-alpha-90 border-round-3xl text-white">
               <i class="pi pi-plus"></i>
             </span>
           </figure>
@@ -70,72 +53,52 @@
         </div>
 
         <div class="bio">
+          @if (title && desc) {
           <h2>{{ title }}</h2>
           <p class="text-600">{{ desc }}</p>
+          }@else {
+          <h2>
+            <ngx-skeleton-loader count="2" appearance="line"
+              [theme]="{ 'background-image': 'linear-gradient(135deg,#f9ce34 25%,#ee2a7b 66%,#6228d7 99%)' }" />
+          </h2>
+
+          }
         </div>
 
         <div class="contacts flex justify-content-center">
-          <button
-            pButton
-            class="contact-btn mr-4 flex-grow-1 border-round-2xl shadow-none"
-            label="Follow👀"
-          ></button>
-          <button
-            pButton
-            class="border-round-2xl p-button-outlined p-button-secondary shadow-none text-sm"
-            label="Send message (soon)"
-            disabled
-          ></button>
+          <button pButton class="contact-btn mr-4 flex-grow-1 border-round-2xl shadow-none" label="Follow👀"></button>
+          <button pButton class="border-round-2xl p-button-outlined p-button-secondary shadow-none text-sm"
+            label="Send message (soon)" disabled></button>
         </div>
 
         <div class="links flex gap-2 mt-3 overflow-x-scroll">
+
+
           @for (link of links; track $index) {
 
           <a [href]="link.url" target="_blank">
             <figure role="button" class="relative w-5rem h-5rem border-circle">
-              <img
-                class="w-full h-full border-circle"
-                [src]="link.img"
-                alt="social link"
-                srcset=""
-              />
+              <img class="w-full h-full border-circle" [src]="link.img" alt="social link" />
             </figure>
             <figcaption>
               <p class="text-xs text-center text-500">{{ link.name }}</p>
             </figcaption>
           </a>
-
           }
+
         </div>
       </div>
     </div>
   </div>
 
-  <div
-    class="nav border-top-1 border-300 pl-5 pr-5 flex justify-content-between"
-  >
-    <span
-      role="button"
-      class="nav-link text-500"
-      routerLink="/projects"
-      routerLinkActive="active-link"
-    >
+  <div class="nav border-top-1 border-300 pl-5 pr-5 flex justify-content-between">
+    <span role="button" class="nav-link text-500" routerLink="/projects" routerLinkActive="active-link">
       <i class="text-3xl pi pi-qrcode"></i>
     </span>
-    <span
-      role="button"
-      class="nav-link text-500"
-      routerLink="/skills"
-      routerLinkActive="active-link"
-    >
+    <span role="button" class="nav-link text-500" routerLink="/skills" routerLinkActive="active-link">
       <i class="text-3xl pi pi-users"></i>
     </span>
-    <span
-      role="button"
-      class="nav-link text-500"
-      routerLink="/experience"
-      routerLinkActive="active-link"
-    >
+    <span role="button" class="nav-link text-500" routerLink="/experience" routerLinkActive="active-link">
       <i class="text-3xl pi pi-bookmark"></i>
     </span>
   </div>
