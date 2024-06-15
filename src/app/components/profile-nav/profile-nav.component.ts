@@ -25,13 +25,14 @@ export class ProfileNavComponent implements OnInit {
     private _Renderer2: Renderer2,
     private _GetDataService: GetDataService
   ) {}
+  isSettingActive: boolean = false;
 
   profilePhoto!: string;
   title!: string;
   desc!: string;
 
   links!: any[];
-  isSettingActive: boolean = false;
+  projects!: any[];
 
   ngOnInit(): void {
     this._PrimeNGConfig.ripple = true;
@@ -43,7 +44,6 @@ export class ProfileNavComponent implements OnInit {
     });
 
     // get links
-
     this._GetDataService.getLinks().subscribe({
       next: (res) => {
         this.links = res;
