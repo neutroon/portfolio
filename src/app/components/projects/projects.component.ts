@@ -1,48 +1,54 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
+import { GetDataService } from '../../shared/services/get-data.service';
 
-
+interface projects {
+  mobile: {
+    device: string;
+    gif: string;
+    url: string;
+  };
+  desktop: {
+    device: string;
+    gif: string;
+    url: string;
+  };
+  ischangeViewLoading: boolean;
+  id: string;
+}
 @Component({
   selector: 'app-projects',
   standalone: true,
-  imports: [
-    ButtonModule,
-  ],
+  imports: [ButtonModule],
   templateUrl: './projects.component.html',
-  styleUrl: './projects.component.scss'
+  styleUrl: './projects.component.scss',
 })
-export class ProjectsComponent {
-
-
-  changeVeiw(project:any){
-  let index = this.projects.indexOf(project);
-  if(this.projects[index].device == 'mobile'){
-    this.projects[index].device = 'desktop'
-  }else{
-    this.projects[index].device = 'mobile'
-  }
-  }
-
-
-
-
-
-
-  projects = [
-    {
-      device: 'mobile',
-      gif: `./assets/imgs/project1/`,
-      url: ''
-    },
-    {
-      device: 'desktop',
-      gif: './assets/imgs/project2/',
-      url: ''
+export class ProjectsComponent implements OnInit {
+  constructor(
+    private _GetDataService: GetDataService,
+    private _Renderer2: Renderer2
+  ) {}
+  isLoading: boolean = false;
+  changeVeiw(project: any, projectImg: HTMLImageElement) {
+    project.ischangeViewLoading = true;
+    projectImg.addEventListener('load', () => {
+      project.ischangeViewLoading = false;
+    });
+    if (projectImg.getAttribute('src') == project.mobile?.gif) {
+      this._Renderer2.setAttribute(projectImg, 'src', project.desktop?.gif);
+    } else {
+      this._Renderer2.setAttribute(projectImg, 'src', project.mobile?.gif);
     }
-  ]
+  }
 
+  projects: projects[] = [];
 
-
-
-
+  ngOnInit(): void {
+    this._GetDataService.getProject().subscribe({
+      next: (res) => {
+        this.projects = res;
+        console.log(res);
+      },
+    });
+  }
 }
