@@ -23,7 +23,7 @@ export class GetDataService {
       idField: 'id',
     }) as Observable<any>;
   }
-  getProject(): Observable<any> {
+  getProjects(): Observable<any> {
     return collectionData(this.projectsCollection, {
       idField: 'id',
     }) as Observable<any>;
