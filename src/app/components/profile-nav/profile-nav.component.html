@@ -37,18 +37,30 @@
           </figure>
 
           <span>
-            <h3>36</h3>
-            <p class="text-sm text-500">Projects</p>
+            @if(totalContributions) {
+            <h3>{{reposCount}}</h3>
+            }@else {
+            <app-progress-spinner></app-progress-spinner>
+            }
+            <p class="text-sm text-500">Repositories</p>
           </span>
 
           <span>
-            <h3>24.6k</h3>
-            <p class="text-sm text-500">Followers</p>
+            @if(totalContributions) {
+            <h3>{{totalContributions}}</h3>
+            }@else {
+            <app-progress-spinner></app-progress-spinner>
+            }
+            <p class="text-sm text-500">Contributions</p>
           </span>
 
           <span>
-            <h3>44</h3>
-            <p class="text-sm text-500">Following</p>
+            @if(totalCommitsCount) {
+            <h3>{{totalCommitsCount}}</h3>
+            }@else {
+            <app-progress-spinner></app-progress-spinner>
+            }
+            <p class="text-sm text-500">Recently commits</p>
           </span>
         </div>
 
