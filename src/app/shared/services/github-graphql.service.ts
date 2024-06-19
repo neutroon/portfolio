@@ -1,7 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Apollo, gql } from 'apollo-angular';
+import { Observable, forkJoin } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { switchMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -33,11 +35,11 @@ export class GithubGraphqlService {
         })
       );
   }
-  private apiUrl = 'https://api.github.com/users/';
+  private apiUrl = 'https://api.github.com';
   private accessToken = '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';
 
   getUserRepoCount(username: string) {
-    const url = `${this.apiUrl}${username}`;
+    const url = `${this.apiUrl}/users/${username}`;
     const headers = {
       Authorization: `Bearer ${this.accessToken}`,
     };
@@ -50,15 +52,42 @@ export class GithubGraphqlService {
         return allRepos;
       })
     );
-    // .toPromise()
-    // .then((response) => {
-    //   const publicRepos = response.public_repos;
-    //   const privateRepos = response.total_private_repos;
-    //   return { publicRepos, privateRepos };
-    // })
-    // .catch((error) => {
-    //   console.error('Error fetching data:', error);
-    //   throw error;
-    // });
+  }
+
+  // Fetch all repositories for a user or organization
+  getUserRepositories(username: string): Observable<any[]> {
+    const url = `${this.apiUrl}/users/${username}/repos`;
+    const headers = {
+      Authorization: `Bearer ${this.accessToken}`,
+    };
+    return this._HttpClient.get<any[]>(url, { headers });
+  }
+
+  // Fetch latest commits count for a repository
+  getLatestCommitsCount(owner: string, repo: string): Observable<number> {
+    const url = `${this.apiUrl}/repos/${owner}/${repo}/commits?per_page=1`;
+    const headers = {
+      Authorization: `Bearer ${this.accessToken}`,
+    };
+    return this._HttpClient
+      .get<any[]>(url, { headers })
+      .pipe(map((response) => response.length));
+  }
+
+  // Fetch total latest commits count across all repositories for a user
+
+  getTotalLatestCommitsCount(username: string): Observable<number> {
+    return this.getUserRepositories(username).pipe(
+      switchMap((repos) => {
+        const requests = repos.map((repo) => {
+          return this.getLatestCommitsCount(username, repo.name);
+        });
+        return forkJoin(requests).pipe(
+          map((commitCounts) =>
+            commitCounts.reduce((acc, count) => acc + count, 0)
+          )
+        );
+      })
+    );
   }
 }
