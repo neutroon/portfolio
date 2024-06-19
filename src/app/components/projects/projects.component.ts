@@ -1,21 +1,8 @@
 import { Component, OnInit, Renderer2 } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { GetDataService } from '../../shared/services/get-data.service';
+import { project } from '../../shared/interfaces/project';
 
-interface projects {
-  mobile: {
-    device: string;
-    gif: string;
-    url: string;
-  };
-  desktop: {
-    device: string;
-    gif: string;
-    url: string;
-  };
-  ischangeViewLoading: boolean;
-  id: string;
-}
 @Component({
   selector: 'app-projects',
   standalone: true,
@@ -28,7 +15,6 @@ export class ProjectsComponent implements OnInit {
     private _GetDataService: GetDataService,
     private _Renderer2: Renderer2
   ) {}
-  isLoading: boolean = false;
   changeVeiw(project: any, projectImg: HTMLImageElement) {
     project.ischangeViewLoading = true;
     projectImg.addEventListener('load', () => {
@@ -41,7 +27,7 @@ export class ProjectsComponent implements OnInit {
     }
   }
 
-  projects: projects[] = [];
+  projects: project[] = [];
 
   ngOnInit(): void {
     this._GetDataService.getProjects().subscribe({
