@@ -33,7 +33,6 @@ export class ProjectsComponent implements OnInit {
     this._GetDataService.getProjects().subscribe({
       next: (res) => {
         this.projects = res;
-        console.log(res);
       },
     });
   }

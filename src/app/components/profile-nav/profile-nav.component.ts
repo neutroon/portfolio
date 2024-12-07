@@ -20,7 +20,7 @@ import { ProgressSpinnerComponent } from '../progress-spinner/progress-spinner.c
     ButtonModule,
     RouterModule,
     SettingComponent,
-    TranslateModule, // Add TranslateModule here
+    TranslateModule, // Adding TranslateModule here
     ProgressSpinnerComponent,
   ],
   providers: [
