@@ -4,6 +4,7 @@ import { Apollo, gql } from 'apollo-angular';
 import { Observable, forkJoin } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { switchMap } from 'rxjs/operators';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -36,12 +37,11 @@ export class GithubGraphqlService {
       );
   }
   private apiUrl = 'https://api.github.com';
-  private accessToken = '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';
 
   getUserRepoCount(username: string) {
     const url = `${this.apiUrl}/users/${username}`;
     const headers = {
-      Authorization: `Bearer ${this.accessToken}`,
+      Authorization: `Bearer ${environment.githubToken}`,
     };
 
     return this._HttpClient.get<any>(url, { headers }).pipe(
@@ -58,7 +58,7 @@ export class GithubGraphqlService {
   getUserRepositories(username: string): Observable<any[]> {
     const url = `${this.apiUrl}/users/${username}/repos`;
     const headers = {
-      Authorization: `Bearer ${this.accessToken}`,
+      Authorization: `Bearer ${environment.githubToken}`,
     };
     return this._HttpClient.get<any[]>(url, { headers });
   }
@@ -67,7 +67,7 @@ export class GithubGraphqlService {
   getLatestCommitsCount(owner: string, repo: string): Observable<number> {
     const url = `${this.apiUrl}/repos/${owner}/${repo}/commits?per_page=1`;
     const headers = {
-      Authorization: `Bearer ${this.accessToken}`,
+      Authorization: `Bearer ${environment.githubToken}`,
     };
     return this._HttpClient
       .get<any[]>(url, { headers })
@@ -75,7 +75,6 @@ export class GithubGraphqlService {
   }
 
   // Fetch total latest commits count across all repositories for a user
-
   getTotalLatestCommitsCount(username: string): Observable<number> {
     return this.getUserRepositories(username).pipe(
       switchMap((repos) => {

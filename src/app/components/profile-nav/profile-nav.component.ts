@@ -12,6 +12,8 @@ import { HttpLink } from 'apollo-angular/http';
 import { InMemoryCache } from '@apollo/client/core';
 import { HttpHeaders } from '@angular/common/http'; // Import HttpHeaders
 import { ProgressSpinnerComponent } from '../progress-spinner/progress-spinner.component';
+import { environment } from '../../../environments/environment';
+
 @Component({
   selector: 'profile-nav',
   standalone: true,
@@ -33,8 +35,7 @@ import { ProgressSpinnerComponent } from '../progress-spinner/progress-spinner.c
           link: httpLink.create({
             uri: 'https://api.github.com/graphql',
             headers: new HttpHeaders({
-              // Use HttpHeaders object
-              Authorization: `Bearer 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`,
+              Authorization: `Bearer ${environment.githubToken}`,
             }),
           }),
         };
