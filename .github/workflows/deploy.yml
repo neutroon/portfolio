@@ -28,5 +28,5 @@ jobs:
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: portfolio  # adjust this to your build output directory
+          folder: dist/my-insta  # adjust this to your build output directory
           branch: gh-pages
