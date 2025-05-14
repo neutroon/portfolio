@@ -62,51 +62,55 @@ export class ProfileNavComponent implements OnInit {
 
   links!: any[];
   projects!: any[];
-  totalContributions!: number;
-  reposCount!: number;
-  totalCommitsCount!: number;
+  totalContributions: number = 0;
+  reposCount: number = 0;
+  totalCommitsCount: number = 0;
+  isLoading: boolean = true;
+
   ngOnInit(): void {
     this._PrimeNGConfig.ripple = true;
+    this.loadUserData();
+    this.loadProfileData();
+  }
 
-    this._GetDataService.getData().subscribe((res) => {
-      this.profilePhoto = res[0].profilePhoto;
-      this.title = res[0].title;
-      this.desc = res[0].desc;
+  private loadUserData(): void {
+    const username = 'neutroon';
+    this._GithubGraphqlService.getUserData(username).subscribe({
+      next: (data) => {
+        this.totalContributions = data.totalContributions;
+        this.reposCount = data.reposCount;
+        this.totalCommitsCount = data.totalCommitsCount;
+        this.isLoading = false;
+      },
+      error: (error) => {
+        console.error('Error loading GitHub data:', error);
+        this.isLoading = false;
+      },
+    });
+  }
+
+  private loadProfileData(): void {
+    this._GetDataService.getData().subscribe({
+      next: (res) => {
+        this.profilePhoto = res[0].profilePhoto;
+        this.title = res[0].title;
+        this.desc = res[0].desc;
+      },
+      error: (error) => {
+        console.error('Error loading profile data:', error);
+      },
     });
 
-    // get links
     this._GetDataService.getLinks().subscribe({
       next: (res) => {
         this.links = res;
       },
-    });
-
-    // get contributions
-    const username = 'neutroon'; // Replace with the GitHub username you want to query
-    this._GithubGraphqlService.getTotalContributions(username).subscribe({
-      next: (res) => {
-        this.totalContributions = res;
-      },
-      error: (err) => {
-        console.error(err);
-      },
-    });
-    // get repos count
-    this._GithubGraphqlService.getUserRepoCount(username).subscribe({
-      next: (res) => {
-        this.reposCount = res;
-      },
-    });
-    // get latest commits count
-    this._GithubGraphqlService.getTotalLatestCommitsCount(username).subscribe({
-      next: (res) => {
-        this.totalCommitsCount = res;
-      },
-      error: (err) => {
-        console.error(err);
+      error: (error) => {
+        console.error('Error loading links:', error);
       },
     });
   }
+
   showSettingMenu(aboutEl: HTMLElement, settingEl: HTMLElement) {
     this._Renderer2.setStyle(aboutEl, 'transform', 'translateY(-100%)');
     this._Renderer2.setStyle(settingEl, 'transform', 'translateY(0)');

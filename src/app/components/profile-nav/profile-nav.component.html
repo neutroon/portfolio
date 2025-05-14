@@ -1,5 +1,5 @@
 <section>
-  <div class="pl-4 pr-4 header shadow-1 flex align-items-center justify-content-between mb-2">
+  <div class="navbar pl-4 pr-4 header shadow-1 flex align-items-center justify-content-between mb-2 ">
     <div role="button" class="Portfolio-name flex align-items-center">
       <h2 class="pr-2 font-bold">{{ "header.heshammansour" | translate }}</h2>
       <i class="pi pi-chevron-circle-down"></i>
@@ -37,7 +37,7 @@
           </figure>
 
           <span>
-            @if(totalContributions) {
+            @if(!isLoading) {
             <h3>{{reposCount}}</h3>
             }@else {
             <app-progress-spinner></app-progress-spinner>
@@ -46,7 +46,7 @@
           </span>
 
           <span>
-            @if(totalContributions) {
+            @if(!isLoading) {
             <h3>{{totalContributions}}</h3>
             }@else {
             <app-progress-spinner></app-progress-spinner>
@@ -55,7 +55,7 @@
           </span>
 
           <span>
-            @if(totalCommitsCount) {
+            @if(!isLoading) {
             <h3>{{totalCommitsCount}}</h3>
             }@else {
             <app-progress-spinner></app-progress-spinner>
