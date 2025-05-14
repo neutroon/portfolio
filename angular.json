@@ -73,8 +73,6 @@
               "namedChunks": false,
               "aot": true,
               "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
               "ssr": false,
               "prerender": false,
               "budgets": [
