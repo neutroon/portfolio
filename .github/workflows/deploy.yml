@@ -31,26 +31,28 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
+        # Debug: Check token
+        echo "=== Token Debug Info ==="
+        echo "Token length: ${#GITHUB_TOKEN}"
+        echo "Token prefix: ${GITHUB_TOKEN:0:4}"
+        echo "Token exists: $([ ! -z "$GITHUB_TOKEN" ] && echo "Yes" || echo "No")"
+
         # Create environments directory if it doesn't exist
         mkdir -p src/environments
 
         # Create development environment file
-        cat > src/environments/environment.ts << EOL
-        export const environment = {
+        echo "export const environment = {
           production: false,
           githubToken: '$GITHUB_TOKEN',
           environment: 'development'
-        };
-        EOL
+        };" > src/environments/environment.ts
 
         # Create production environment file
-        cat > src/environments/environment.prod.ts << EOL
-        export const environment = {
+        echo "export const environment = {
           production: true,
           githubToken: '$GITHUB_TOKEN',
           environment: 'production'
-        };
-        EOL
+        };" > src/environments/environment.prod.ts
 
         # Debug: Check environment files
         echo "=== Environment Files ==="
@@ -58,6 +60,11 @@ jobs:
         echo "=== Environment File Contents (without token) ==="
         grep -v "githubToken" src/environments/environment.ts
         grep -v "githubToken" src/environments/environment.prod.ts
+
+        # Debug: Check token in files
+        echo "=== Token in Files ==="
+        echo "Development file token length: $(grep -o "githubToken: '[^']*'" src/environments/environment.ts | cut -d"'" -f2 | wc -c)"
+        echo "Production file token length: $(grep -o "githubToken: '[^']*'" src/environments/environment.prod.ts | cut -d"'" -f2 | wc -c)"
 
     - name: Build
       run: |
