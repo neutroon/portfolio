@@ -41,10 +41,18 @@ jobs:
         mkdir -p src/environments
 
         # Create development environment file
-        printf 'export const environment = {\n  production: false,\n  githubToken: "%s",\n  environment: "development"\n};' "$GITHUB_TOKEN" > src/environments/environment.ts
+        echo 'export const environment = {' > src/environments/environment.ts
+        echo '  production: false,' >> src/environments/environment.ts
+        echo "  githubToken: \"$GITHUB_TOKEN\"," >> src/environments/environment.ts
+        echo '  environment: "development"' >> src/environments/environment.ts
+        echo '};' >> src/environments/environment.ts
 
         # Create production environment file
-        printf 'export const environment = {\n  production: true,\n  githubToken: "%s",\n  environment: "production"\n};' "$GITHUB_TOKEN" > src/environments/environment.prod.ts
+        echo 'export const environment = {' > src/environments/environment.prod.ts
+        echo '  production: true,' >> src/environments/environment.prod.ts
+        echo "  githubToken: \"$GITHUB_TOKEN\"," >> src/environments/environment.prod.ts
+        echo '  environment: "production"' >> src/environments/environment.prod.ts
+        echo '};' >> src/environments/environment.prod.ts
 
         # Debug: Check environment files
         echo "=== Environment Files ==="
