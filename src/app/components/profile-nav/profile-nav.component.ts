@@ -31,15 +31,33 @@ import { environment } from '../../../environments/environment';
       provide: APOLLO_OPTIONS,
       useFactory: (httpLink: HttpLink) => {
         const token = environment.githubToken;
-        console.log('Token length:', token ? token.length : 0); // Debug token
+        console.log('Token length:', token ? token.length : 0);
+        console.log('Environment:', environment.environment);
+
+        if (!token) {
+          console.error('GitHub token is missing!');
+        }
+
         return {
           cache: new InMemoryCache(),
           link: httpLink.create({
             uri: 'https://api.github.com/graphql',
             headers: new HttpHeaders({
               Authorization: `Bearer ${token}`,
+              'Content-Type': 'application/json',
+              Accept: 'application/json',
             }),
           }),
+          defaultOptions: {
+            watchQuery: {
+              fetchPolicy: 'no-cache',
+              errorPolicy: 'all',
+            },
+            query: {
+              fetchPolicy: 'no-cache',
+              errorPolicy: 'all',
+            },
+          },
         };
       },
       deps: [HttpLink],

@@ -27,6 +27,12 @@ jobs:
       run: |
         mkdir -p src/environments
 
+        # Debug: Check if token is available
+        if [ -z "$GITHUB_TOKEN" ]; then
+          echo "Error: GITHUB_TOKEN is empty!"
+          exit 1
+        fi
+
         # Create development environment file
         cat > src/environments/environment.ts << EOL
         export const environment = {
@@ -54,7 +60,13 @@ jobs:
         grep -v "githubToken" src/environments/environment.prod.ts
 
     - name: Build
-      run: npm run build
+      run: |
+        # Debug: Check if environment files exist before build
+        ls -la src/environments/
+        # Run the build
+        npm run build
+        # Debug: Check if environment files are included in the build
+        find dist -type f -name "*.js" -exec grep -l "githubToken" {} \;
 
     - name: Deploy to GitHub Pages
       uses: JamesIves/github-pages-deploy-action@v4
