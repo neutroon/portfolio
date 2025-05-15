@@ -1,33 +1,41 @@
-name: Deploy to GitHub Pages
+name: Deploy Portfolio
 
 on:
   push:
-    branches:
-      - main  # or your default branch
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+    - uses: actions/checkout@v3
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
 
-      - name: Install dependencies
-        run: npm install
+    - name: Install dependencies
+      run: npm install
 
-      - name: Build
-        run: npm run build -- --configuration production
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Create environment files
+      run: |
+        mkdir -p src/environments
+        echo "export const environment = {
+          production: false,
+          githubToken: '${{ secrets.GITHUB_TOKEN }}',
+          environment: 'development'
+        };" > src/environments/environment.ts
+        echo "export const environment = {
+          production: true,
+          githubToken: '${{ secrets.GITHUB_TOKEN }}',
+          environment: 'production'
+        };" > src/environments/environment.prod.ts
 
-      - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          folder: dist/my-insta  # build output directory
-          branch: gh-pages
-          token: ${{ secrets.GITHUB_TOKEN }}  # fixe the 403 error
+    - name: Build
+      run: npm run build
+
+    # Add deployment steps here based on your hosting platform
