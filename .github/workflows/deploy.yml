@@ -27,13 +27,13 @@ jobs:
         # Development environment
         echo "export const environment = {
           production: false,
-          githubToken: '${{ secrets.GITHUB_TOKEN }}',
+          githubToken: '${{ secrets.TOKEN_GITHUB }}',
           environment: 'development'
         };" > src/environments/environment.ts
         # Production environment
         echo "export const environment = {
           production: true,
-          githubToken: '${{ secrets.GITHUB_TOKEN }}',
+          githubToken: '${{ secrets.TOKEN_GITHUB }}',
           environment: 'production'
         };" > src/environments/environment.prod.ts
 
