@@ -22,24 +22,22 @@ jobs:
       run: npm install
 
     - name: Create environment files
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         mkdir -p src/environments
+        # Development environment
         echo "export const environment = {
           production: false,
-          githubToken: process.env['TOKEN_GITHUB'] || '',
+          githubToken: '${{ secrets.GITHUB_TOKEN }}',
           environment: 'development'
         };" > src/environments/environment.ts
+        # Production environment
         echo "export const environment = {
           production: true,
-          githubToken: process.env['TOKEN_GITHUB'] || '',
+          githubToken: '${{ secrets.GITHUB_TOKEN }}',
           environment: 'production'
         };" > src/environments/environment.prod.ts
 
     - name: Build
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: npm run build
 
     - name: Deploy to GitHub Pages
