@@ -27,8 +27,23 @@
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
+              {
+                "glob": "**/*",
+                "input": "src/assets",
+                "output": "/assets/"
+              },
+              {
+                "glob": "**/*",
+                "input": "src",
+                "output": "/",
+                "ignore": ["**/*.ts", "**/*.scss", "**/*.html"]
+              },
               "src/icon.png",
-              "src/assets"
+              {
+                "glob": "**/*",
+                "input": "node_modules/primeicons/fonts",
+                "output": "/assets/fonts/"
+              }
             ],
             "styles": [
               "./node_modules/normalize.css/normalize.css",
@@ -93,7 +108,8 @@
               "extractLicenses": false,
               "sourceMap": true,
               "ssr": false,
-              "prerender": false
+              "prerender": false,
+              "fileReplacements": []
             }
           },
           "defaultConfiguration": "production"

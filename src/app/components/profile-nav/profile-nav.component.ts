@@ -10,7 +10,7 @@ import { GithubGraphqlService } from '../../shared/services/github-graphql.servi
 import { Apollo, APOLLO_OPTIONS } from 'apollo-angular';
 import { HttpLink } from 'apollo-angular/http';
 import { InMemoryCache } from '@apollo/client/core';
-import { HttpHeaders } from '@angular/common/http'; // Import HttpHeaders
+import { HttpHeaders } from '@angular/common/http';
 import { ProgressSpinnerComponent } from '../progress-spinner/progress-spinner.component';
 import { environment } from '../../../environments/environment';
 
@@ -22,7 +22,7 @@ import { environment } from '../../../environments/environment';
     ButtonModule,
     RouterModule,
     SettingComponent,
-    TranslateModule, // Adding TranslateModule here
+    TranslateModule,
     ProgressSpinnerComponent,
   ],
   providers: [
@@ -31,8 +31,8 @@ import { environment } from '../../../environments/environment';
       provide: APOLLO_OPTIONS,
       useFactory: (httpLink: HttpLink) => {
         const token = environment.githubToken;
-        console.log('Token length:', token ? token.length : 0);
         console.log('Environment:', environment.environment);
+        console.log('Token length:', token ? token.length : 0);
         console.log(
           'Token format check:',
           token ? token.startsWith('ghp_') : false
@@ -86,12 +86,11 @@ export class ProfileNavComponent implements OnInit {
     private _GetDataService: GetDataService,
     private _GithubGraphqlService: GithubGraphqlService
   ) {}
-  isSettingActive: boolean = false;
 
+  isSettingActive: boolean = false;
   profilePhoto!: string;
   title!: string;
   desc!: string;
-
   links!: any[];
   projects!: any[];
   totalContributions: number = 0;
@@ -107,8 +106,10 @@ export class ProfileNavComponent implements OnInit {
 
   private loadUserData(): void {
     const username = 'neutroon';
+    console.log('Loading GitHub data for user:', username);
     this._GithubGraphqlService.getUserData(username).subscribe({
       next: (data) => {
+        console.log('GitHub data loaded successfully:', data);
         this.totalContributions = data.totalContributions;
         this.reposCount = data.reposCount;
         this.totalCommitsCount = data.totalCommitsCount;
@@ -116,6 +117,11 @@ export class ProfileNavComponent implements OnInit {
       },
       error: (error) => {
         console.error('Error loading GitHub data:', error);
+        console.error('Error details:', {
+          message: error.message,
+          networkError: error.networkError,
+          graphQLErrors: error.graphQLErrors,
+        });
         this.isLoading = false;
       },
     });

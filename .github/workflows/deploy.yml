@@ -25,7 +25,7 @@ jobs:
     - name: Install dependencies
       run: npm install
 
-    - name: Create environment files
+    - name: Create production environment file
       env:
         GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}
       run: |
@@ -43,15 +43,6 @@ jobs:
           exit 1
         fi
 
-        # Create development environment file
-        cat > src/environments/environment.ts << EOL
-        export const environment = {
-          production: false,
-          githubToken: '${GITHUB_TOKEN}',
-          environment: 'development'
-        };
-        EOL
-
         # Create production environment file
         cat > src/environments/environment.prod.ts << EOL
         export const environment = {
@@ -67,7 +58,6 @@ jobs:
         # Debug: Check if environment files are created
         ls -la src/environments/
         # Debug: Check environment file content (without showing the token)
-        grep -v "githubToken" src/environments/environment.ts
         grep -v "githubToken" src/environments/environment.prod.ts
 
     - name: Build
@@ -90,5 +80,6 @@ jobs:
         folder: dist/my-insta
         branch: gh-pages
         token: ${{ secrets.GITHUB_TOKEN }}
+        clean: true
 
     # Add deployment steps here based on your hosting platform
