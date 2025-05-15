@@ -37,6 +37,9 @@ jobs:
         echo "Token prefix: ${GITHUB_TOKEN:0:4}"
         echo "Token exists: $([ ! -z "$GITHUB_TOKEN" ] && echo "Yes" || echo "No")"
 
+        # Trim the token to remove any whitespace or newlines
+        GITHUB_TOKEN=$(echo -n "$GITHUB_TOKEN" | tr -d '\n\r')
+
         # Create environments directory if it doesn't exist
         mkdir -p src/environments
 
