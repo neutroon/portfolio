@@ -74,11 +74,13 @@ jobs:
         npm run build
         # Debug: Check if environment files are included in the build
         find dist -type f -name "*.js" -exec grep -l "githubToken" {} \;
+        # Debug: List build output directory
+        ls -la dist/my-insta/
 
     - name: Deploy to GitHub Pages
       uses: JamesIves/github-pages-deploy-action@v4
       with:
-        folder: dist/my-insta/browser
+        folder: dist/my-insta
         branch: gh-pages
 
     # Add deployment steps here based on your hosting platform

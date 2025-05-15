@@ -20,6 +20,7 @@
             "outputPath": "dist/my-insta",
             "index": "src/index.html",
             "browser": "src/main.ts",
+            "baseHref": "/",
             "polyfills": [
               "zone.js"
             ],
@@ -69,6 +70,7 @@
               "extractLicenses": true,
               "ssr": false,
               "prerender": false,
+              "baseHref": "/",
               "budgets": [
                 {
                   "type": "initial",
