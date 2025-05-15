@@ -22,23 +22,25 @@ jobs:
       run: npm install
 
     - name: Create environment files
+      env:
+        GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}
       run: |
         mkdir -p src/environments
         # Development environment
         echo "export const environment = {
           production: false,
-          githubToken: '${{ secrets.TOKEN_GITHUB }}',
+          githubToken: '${GITHUB_TOKEN}',
           environment: 'development'
         };" > src/environments/environment.ts
         # Production environment
         echo "export const environment = {
           production: true,
-          githubToken: '${{ secrets.TOKEN_GITHUB }}',
+          githubToken: '${GITHUB_TOKEN}',
           environment: 'production'
         };" > src/environments/environment.prod.ts
 
         # Debug: Check if token is being injected (without showing the actual token)
-        echo "Token length: ${#TOKEN_GITHUB}"
+        echo "Token length: ${#GITHUB_TOKEN}"
         # Debug: Check if environment files are created
         ls -la src/environments/
         # Debug: Check environment file content (without showing the token)
