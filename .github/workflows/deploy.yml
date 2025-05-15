@@ -11,10 +11,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
     - name: Setup Node.js
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4
       with:
         node-version: '18'
 
@@ -22,20 +22,24 @@ jobs:
       run: npm install
 
     - name: Create environment files
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         mkdir -p src/environments
         echo "export const environment = {
           production: false,
-          githubToken: '${{ secrets.GITHUB_TOKEN }}',
+          githubToken: process.env['GITHUB_TOKEN'] || '',
           environment: 'development'
         };" > src/environments/environment.ts
         echo "export const environment = {
           production: true,
-          githubToken: '${{ secrets.GITHUB_TOKEN }}',
+          githubToken: process.env['GITHUB_TOKEN'] || '',
           environment: 'production'
         };" > src/environments/environment.prod.ts
 
     - name: Build
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: npm run build
 
     # Add deployment steps here based on your hosting platform
