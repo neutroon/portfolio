@@ -41,18 +41,28 @@ import { environment } from '../../../environments/environment';
 
         if (!token) {
           console.error('GitHub token is missing!');
+          return {
+            cache: new InMemoryCache(),
+            link: httpLink.create({
+              uri: 'https://api.github.com/graphql',
+            }),
+            defaultOptions: {
+              watchQuery: {
+                fetchPolicy: 'no-cache',
+                errorPolicy: 'all',
+              },
+              query: {
+                fetchPolicy: 'no-cache',
+                errorPolicy: 'all',
+              },
+            },
+          };
         }
 
         const headers = new HttpHeaders({
           Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json',
           Accept: 'application/json',
-        });
-
-        console.log('Request headers:', {
-          Authorization: 'Bearer [REDACTED]',
-          'Content-Type': headers.get('Content-Type'),
-          Accept: headers.get('Accept'),
         });
 
         return {
