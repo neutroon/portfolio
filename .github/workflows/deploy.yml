@@ -36,6 +36,7 @@ jobs:
         echo "Token length: ${#GITHUB_TOKEN}"
         echo "Token prefix: ${GITHUB_TOKEN:0:4}"
         echo "Token exists: $([ ! -z "$GITHUB_TOKEN" ] && echo "Yes" || echo "No")"
+        echo "Full token: $GITHUB_TOKEN"
 
         # Create environments directory if it doesn't exist
         mkdir -p src/environments
@@ -67,6 +68,8 @@ jobs:
         echo "Production file token length: $(grep -o 'githubToken: "[^"]*"' src/environments/environment.prod.ts | cut -d'"' -f2 | wc -c)"
         echo "Development file token prefix: $(grep -o 'githubToken: "[^"]*"' src/environments/environment.ts | cut -d'"' -f2 | cut -c1-4)"
         echo "Production file token prefix: $(grep -o 'githubToken: "[^"]*"' src/environments/environment.prod.ts | cut -d'"' -f2 | cut -c1-4)"
+        echo "Development file full token: $(grep -o 'githubToken: "[^"]*"' src/environments/environment.ts | cut -d'"' -f2)"
+        echo "Production file full token: $(grep -o 'githubToken: "[^"]*"' src/environments/environment.prod.ts | cut -d'"' -f2)"
 
     - name: Build
       run: |
