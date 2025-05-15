@@ -37,6 +37,7 @@ import { environment } from '../../../environments/environment';
           'Token format check:',
           token ? token.startsWith('ghp_') : false
         );
+        console.log('Production mode:', environment.production);
 
         if (!token) {
           console.error('GitHub token is missing!');
