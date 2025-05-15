@@ -82,5 +82,6 @@ jobs:
       with:
         folder: dist/my-insta
         branch: gh-pages
+        token: ${{ secrets.TOKEN_GITHUB }}
 
     # Add deployment steps here based on your hosting platform
