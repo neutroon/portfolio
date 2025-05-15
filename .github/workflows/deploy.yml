@@ -33,6 +33,12 @@ jobs:
           exit 1
         fi
 
+        # Validate token format
+        if [[ ! "$GITHUB_TOKEN" =~ ^ghp_[a-zA-Z0-9]{36}$ ]]; then
+          echo "Error: GITHUB_TOKEN format is invalid!"
+          exit 1
+        fi
+
         # Create development environment file
         cat > src/environments/environment.ts << EOL
         export const environment = {
@@ -53,6 +59,7 @@ jobs:
 
         # Debug: Check if token is being injected (without showing the actual token)
         echo "Token length: ${#GITHUB_TOKEN}"
+        echo "Token format check: ${GITHUB_TOKEN:0:4}..."
         # Debug: Check if environment files are created
         ls -la src/environments/
         # Debug: Check environment file content (without showing the token)
