@@ -43,9 +43,6 @@ jobs:
         };
         EOL
 
-        # Run the environment script
-        node env.js
-
         # Debug: Check environment files
         echo "=== Environment Files ==="
         ls -la src/environments/
