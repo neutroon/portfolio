@@ -16,6 +16,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
 
     - name: Setup Node.js
       uses: actions/setup-node@v4
@@ -25,33 +27,12 @@ jobs:
     - name: Install dependencies
       run: npm install
 
-    - name: Create environment files
+    - name: Setup environment files
       env:
         GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}
       run: |
-        # Create environments directory if it doesn't exist
+        # Create environments directory
         mkdir -p src/environments
-
-        # Debug: Check if token is available
-        if [ -z "$GITHUB_TOKEN" ]; then
-          echo "Error: GITHUB_TOKEN is empty!"
-          exit 1
-        fi
-
-        # Validate token format
-        if [[ ! "$GITHUB_TOKEN" =~ ^ghp_[a-zA-Z0-9]{36}$ ]]; then
-          echo "Error: GITHUB_TOKEN format is invalid!"
-          exit 1
-        fi
-
-        # Create development environment file
-        cat > src/environments/environment.ts << EOL
-        export const environment = {
-          production: false,
-          githubToken: '${GITHUB_TOKEN}',
-          environment: 'development'
-        };
-        EOL
 
         # Create production environment file
         cat > src/environments/environment.prod.ts << EOL
@@ -62,11 +43,13 @@ jobs:
         };
         EOL
 
-        # Debug: Check if environment files are created
+        # Run the environment script
+        node env.js
+
+        # Debug: Check environment files
         echo "=== Environment Files ==="
         ls -la src/environments/
-        echo "=== Environment File Contents (without token) ==="
-        grep -v "githubToken" src/environments/environment.ts
+        echo "=== Production Environment File Content (without token) ==="
         grep -v "githubToken" src/environments/environment.prod.ts
 
     - name: Build
@@ -90,4 +73,13 @@ jobs:
         token: ${{ secrets.GITHUB_TOKEN }}
         clean: true
 
-    # Add deployment steps here based on your hosting platform
+    - name: Restore local environment
+      run: |
+        git checkout src/environments/environment.ts
+        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+        git config --global user.name "github-actions[bot]"
+        git add src/environments/environment.ts
+        git commit -m "chore: restore local environment file" || true
+        git push
+
+    # deployment steps here based on hosting platform
