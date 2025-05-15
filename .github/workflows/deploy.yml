@@ -25,10 +25,11 @@ jobs:
     - name: Install dependencies
       run: npm install
 
-    - name: Create production environment file
+    - name: Create environment files
       env:
         GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}
       run: |
+        # Create environments directory if it doesn't exist
         mkdir -p src/environments
 
         # Debug: Check if token is available
@@ -43,6 +44,15 @@ jobs:
           exit 1
         fi
 
+        # Create development environment file
+        cat > src/environments/environment.ts << EOL
+        export const environment = {
+          production: false,
+          githubToken: '${GITHUB_TOKEN}',
+          environment: 'development'
+        };
+        EOL
+
         # Create production environment file
         cat > src/environments/environment.prod.ts << EOL
         export const environment = {
@@ -52,27 +62,25 @@ jobs:
         };
         EOL
 
-        # Debug: Check if token is being injected (without showing the actual token)
-        echo "Token length: ${#GITHUB_TOKEN}"
-        echo "Token format check: ${GITHUB_TOKEN:0:4}..."
         # Debug: Check if environment files are created
+        echo "=== Environment Files ==="
         ls -la src/environments/
-        # Debug: Check environment file content (without showing the token)
+        echo "=== Environment File Contents (without token) ==="
+        grep -v "githubToken" src/environments/environment.ts
         grep -v "githubToken" src/environments/environment.prod.ts
 
     - name: Build
       run: |
         # Debug: Check if environment files exist before build
+        echo "=== Environment Files Before Build ==="
         ls -la src/environments/
+
         # Run the build
         npm run build
+
         # Debug: List build output directory structure
         echo "=== Build Output Structure ==="
         find dist -type f
-        echo "=== Browser Directory Contents ==="
-        ls -la dist/my-insta/browser/
-        echo "=== Root Directory Contents ==="
-        ls -la dist/my-insta/
 
     - name: Deploy to GitHub Pages
       uses: JamesIves/github-pages-deploy-action@v4
