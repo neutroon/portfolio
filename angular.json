@@ -36,7 +36,12 @@
                 "glob": "**/*",
                 "input": "src",
                 "output": "/",
-                "ignore": ["**/*.ts", "**/*.scss", "**/*.html"]
+                "ignore": [
+                  "**/*.ts",
+                  "**/*.scss",
+                  "**/*.html",
+                  "**/environments/**"
+                ]
               },
               "src/icon.png",
               {

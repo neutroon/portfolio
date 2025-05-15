@@ -34,16 +34,7 @@ jobs:
         # Create environments directory if it doesn't exist
         mkdir -p src/environments
 
-        # Create development environment file
-        cat > src/environments/environment.ts << EOL
-        export const environment = {
-          production: false,
-          githubToken: '${GITHUB_TOKEN}',
-          environment: 'development'
-        };
-        EOL
-
-        # Create production environment file
+        # Create production environment file only
         cat > src/environments/environment.prod.ts << EOL
         export const environment = {
           production: true,
@@ -56,7 +47,6 @@ jobs:
         echo "=== Environment Files ==="
         ls -la src/environments/
         echo "=== Environment File Contents (without token) ==="
-        grep -v "githubToken" src/environments/environment.ts
         grep -v "githubToken" src/environments/environment.prod.ts
 
     - name: Build
@@ -65,12 +55,16 @@ jobs:
         echo "=== Environment Files Before Build ==="
         ls -la src/environments/
 
-        # Run the build
-        npm run build
+        # Run the build with production configuration
+        npm run build -- --configuration=production
 
         # Debug: List build output directory structure
         echo "=== Build Output Structure ==="
         find dist -type f
+
+        # Verify no tokens in build output
+        echo "=== Checking for exposed tokens ==="
+        grep -r "ghp_" dist/ || true
 
     - name: Deploy to GitHub Pages
       uses: JamesIves/github-pages-deploy-action@v4
