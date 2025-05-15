@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Apollo, gql } from 'apollo-angular';
 import { Observable, forkJoin } from 'rxjs';
@@ -9,8 +8,8 @@ import { switchMap } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class GithubGraphqlService {
-  constructor(private _Apollo: Apollo, private _HttpClient: HttpClient) {}
-  private apiUrl = 'https://api.github.com';
+  constructor(private _Apollo: Apollo) {}
+  // private apiUrl = 'https://api.github.com';
 
   private userQuery = gql`
     query GetUserData($username: String!) {
