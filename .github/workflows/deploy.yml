@@ -40,19 +40,23 @@ jobs:
         # Create environments directory if it doesn't exist
         mkdir -p src/environments
 
-        # Create development environment file
-        echo "export const environment = {
-          production: false,
-          githubToken: '$GITHUB_TOKEN',
-          environment: 'development'
-        };" > src/environments/environment.ts
+        # Create development environment file with properly escaped token
+        cat > src/environments/environment.ts << EOF
+export const environment = {
+  production: false,
+  githubToken: "${GITHUB_TOKEN}",
+  environment: 'development'
+};
+EOF
 
-        # Create production environment file
-        echo "export const environment = {
-          production: true,
-          githubToken: '$GITHUB_TOKEN',
-          environment: 'production'
-        };" > src/environments/environment.prod.ts
+        # Create production environment file with properly escaped token
+        cat > src/environments/environment.prod.ts << EOF
+export const environment = {
+  production: true,
+  githubToken: "${GITHUB_TOKEN}",
+  environment: 'production'
+};
+EOF
 
         # Debug: Check environment files
         echo "=== Environment Files ==="
@@ -63,8 +67,10 @@ jobs:
 
         # Debug: Check token in files
         echo "=== Token in Files ==="
-        echo "Development file token length: $(grep -o "githubToken: '[^']*'" src/environments/environment.ts | cut -d"'" -f2 | wc -c)"
-        echo "Production file token length: $(grep -o "githubToken: '[^']*'" src/environments/environment.prod.ts | cut -d"'" -f2 | wc -c)"
+        echo "Development file token length: $(grep -o 'githubToken: "[^"]*"' src/environments/environment.ts | cut -d'"' -f2 | wc -c)"
+        echo "Production file token length: $(grep -o 'githubToken: "[^"]*"' src/environments/environment.prod.ts | cut -d'"' -f2 | wc -c)"
+        echo "Development file token prefix: $(grep -o 'githubToken: "[^"]*"' src/environments/environment.ts | cut -d'"' -f2 | cut -c1-4)"
+        echo "Production file token prefix: $(grep -o 'githubToken: "[^"]*"' src/environments/environment.prod.ts | cut -d'"' -f2 | cut -c1-4)"
 
     - name: Build
       run: |
