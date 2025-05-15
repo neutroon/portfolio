@@ -29,12 +29,21 @@ jobs:
 
     - name: Setup environment files
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}
       run: |
         # Create environments directory if it doesn't exist
         mkdir -p src/environments
 
-        # Only create production environment file
+        # Create development environment file
+        cat > src/environments/environment.ts << EOL
+        export const environment = {
+          production: false,
+          githubToken: '${GITHUB_TOKEN}',
+          environment: 'development'
+        };
+        EOL
+
+        # Create production environment file
         cat > src/environments/environment.prod.ts << EOL
         export const environment = {
           production: true,
@@ -46,7 +55,8 @@ jobs:
         # Debug: Check environment files
         echo "=== Environment Files ==="
         ls -la src/environments/
-        echo "=== Production Environment File Contents (without token) ==="
+        echo "=== Environment File Contents (without token) ==="
+        grep -v "githubToken" src/environments/environment.ts
         grep -v "githubToken" src/environments/environment.prod.ts
 
     - name: Build
