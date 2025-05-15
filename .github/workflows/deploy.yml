@@ -29,21 +29,12 @@ jobs:
 
     - name: Setup environment files
       env:
-        GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-        # Create environments directory
+        # Create environments directory if it doesn't exist
         mkdir -p src/environments
 
-        # Create development environment file
-        cat > src/environments/environment.ts << EOL
-        export const environment = {
-          production: false,
-          githubToken: '${GITHUB_TOKEN}',
-          environment: 'development'
-        };
-        EOL
-
-        # Create production environment file
+        # Only create production environment file
         cat > src/environments/environment.prod.ts << EOL
         export const environment = {
           production: true,
@@ -55,8 +46,7 @@ jobs:
         # Debug: Check environment files
         echo "=== Environment Files ==="
         ls -la src/environments/
-        echo "=== Environment File Contents (without token) ==="
-        grep -v "githubToken" src/environments/environment.ts
+        echo "=== Production Environment File Contents (without token) ==="
         grep -v "githubToken" src/environments/environment.prod.ts
 
     - name: Build
@@ -79,14 +69,3 @@ jobs:
         branch: gh-pages
         token: ${{ secrets.GITHUB_TOKEN }}
         clean: true
-
-    - name: Restore local environment
-      run: |
-        git checkout src/environments/environment.ts
-        git config --global user.email "github-actions[bot]@users.noreply.github.com"
-        git config --global user.name "github-actions[bot]"
-        git add src/environments/environment.ts
-        git commit -m "chore: restore local environment file" || true
-        git push
-
-    # deployment steps here based on hosting platform
