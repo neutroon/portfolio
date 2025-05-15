@@ -30,12 +30,14 @@ import { environment } from '../../../environments/environment';
     {
       provide: APOLLO_OPTIONS,
       useFactory: (httpLink: HttpLink) => {
+        const token = environment.githubToken;
+        console.log('Token length:', token ? token.length : 0); // Debug token
         return {
           cache: new InMemoryCache(),
           link: httpLink.create({
             uri: 'https://api.github.com/graphql',
             headers: new HttpHeaders({
-              Authorization: `Bearer ${environment.githubToken}`,
+              Authorization: `Bearer ${token}`,
             }),
           }),
         };

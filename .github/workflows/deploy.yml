@@ -37,6 +37,14 @@ jobs:
           environment: 'production'
         };" > src/environments/environment.prod.ts
 
+        # Debug: Check if token is being injected (without showing the actual token)
+        echo "Token length: ${#TOKEN_GITHUB}"
+        # Debug: Check if environment files are created
+        ls -la src/environments/
+        # Debug: Check environment file content (without showing the token)
+        grep -v "githubToken" src/environments/environment.ts
+        grep -v "githubToken" src/environments/environment.prod.ts
+
     - name: Build
       run: npm run build
 
