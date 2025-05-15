@@ -28,12 +28,12 @@ jobs:
         mkdir -p src/environments
         echo "export const environment = {
           production: false,
-          githubToken: process.env['GITHUB_TOKEN'] || '',
+          githubToken: process.env['TOKEN_GITHUB'] || '',
           environment: 'development'
         };" > src/environments/environment.ts
         echo "export const environment = {
           production: true,
-          githubToken: process.env['GITHUB_TOKEN'] || '',
+          githubToken: process.env['TOKEN_GITHUB'] || '',
           environment: 'production'
         };" > src/environments/environment.prod.ts
 
@@ -41,5 +41,11 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: npm run build
+
+    - name: Deploy to GitHub Pages
+      uses: JamesIves/github-pages-deploy-action@v4
+      with:
+        folder: dist/my-insta/browser
+        branch: gh-pages
 
     # Add deployment steps here based on your hosting platform
