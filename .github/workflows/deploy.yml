@@ -40,23 +40,11 @@ jobs:
         # Create environments directory if it doesn't exist
         mkdir -p src/environments
 
-        # Create development environment file with properly escaped token
-        cat > src/environments/environment.ts << EOF
-export const environment = {
-  production: false,
-  githubToken: "${GITHUB_TOKEN}",
-  environment: 'development'
-};
-EOF
+        # Create development environment file
+        printf 'export const environment = {\n  production: false,\n  githubToken: "%s",\n  environment: "development"\n};' "$GITHUB_TOKEN" > src/environments/environment.ts
 
-        # Create production environment file with properly escaped token
-        cat > src/environments/environment.prod.ts << EOF
-export const environment = {
-  production: true,
-  githubToken: "${GITHUB_TOKEN}",
-  environment: 'production'
-};
-EOF
+        # Create production environment file
+        printf 'export const environment = {\n  production: true,\n  githubToken: "%s",\n  environment: "production"\n};' "$GITHUB_TOKEN" > src/environments/environment.prod.ts
 
         # Debug: Check environment files
         echo "=== Environment Files ==="
