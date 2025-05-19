@@ -20,7 +20,7 @@ $gradient-primary: linear-gradient(
 }
 
 .close-btn {
-  position: fixed;
+  position: absolute;
   top: 20px;
   right: 20px;
   width: 40px;
@@ -38,7 +38,8 @@ $gradient-primary: linear-gradient(
   transition: all 0.3s ease;
 
   &:hover {
-    background: rgba(0, 0, 0, 0.2);
+    background: $gradient-primary;
+    opacity: 0.8;
     transform: scale(1.1);
   }
 }
