@@ -242,3 +242,165 @@ section {
     max-width: 1600px;
   }
 }
+
+// Variables
+$gradient-primary: linear-gradient(
+  45deg,
+  #f09433 0%,
+  #e6683c 25%,
+  #dc2743 50%,
+  #cc2366 75%,
+  #bc1888 100%
+);
+
+// Loading and Error States
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+  gap: 1rem;
+
+  .loading-text {
+    color: #666;
+    font-size: 1.1rem;
+    margin: 0;
+  }
+}
+
+.error-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+  gap: 1rem;
+  padding: 1rem;
+
+  ::ng-deep .p-message {
+    width: 100%;
+    max-width: 500px;
+  }
+
+  .p-button {
+    margin-top: 1rem;
+  }
+}
+
+.skills-section {
+  .skills-content {
+    .skill-category {
+      margin-bottom: 2rem;
+
+      .category-title {
+        font-size: 1.5rem;
+        color: #333;
+        margin-bottom: 1rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 2px solid #eee;
+      }
+
+      .skills-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 1rem;
+      }
+    }
+  }
+}
+
+.skill-card {
+  background: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  .skill-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+
+    i {
+      font-size: 1.5rem;
+      color: #666;
+    }
+
+    h3 {
+      margin: 0;
+      font-size: 1.2rem;
+      color: #333;
+    }
+  }
+
+  .skill-level {
+    margin-bottom: 1rem;
+
+    .level-bars {
+      display: flex;
+      gap: 0.25rem;
+      margin-bottom: 0.5rem;
+
+      .level-bar {
+        flex: 1;
+        height: 4px;
+        background: #eee;
+        border-radius: 2px;
+        transition: background-color 0.3s ease;
+
+        &.active {
+          background: $gradient-primary;
+        }
+      }
+    }
+
+    .level-text {
+      font-size: 0.9rem;
+      color: #666;
+    }
+  }
+
+  .skill-description {
+    color: #666;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    line-height: 1.5;
+  }
+
+  .skill-stats {
+    display: flex;
+    gap: 1rem;
+
+    .stat {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #666;
+      font-size: 0.9rem;
+
+      i {
+        font-size: 1rem;
+      }
+    }
+  }
+}
+
+// Responsive Design
+@media screen and (max-width: 768px) {
+  .skills-section {
+    .skills-content {
+      .skill-category {
+        .skills-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    }
+  }
+}

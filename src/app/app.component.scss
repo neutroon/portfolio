@@ -22,7 +22,7 @@ $gradient-primary: linear-gradient(
   min-height: 100vh;
   background-color: #fafafa;
   position: relative;
-  overflow: hidden; // Prevent horizontal scroll during transitions
+  // overflow: hidden; // Prevent horizontal scroll during transitions
 }
 
 // Main Content
@@ -30,7 +30,7 @@ $gradient-primary: linear-gradient(
   position: relative;
   width: 100%;
   height: calc(100vh - 60px); // Subtract nav height
-  overflow: hidden; // Prevent scroll during transitions
+  // overflow: hidden; // Prevent scroll during transitions
 
   @media screen and (min-width: 768px) {
     padding-top: 80px; // Account for fixed nav

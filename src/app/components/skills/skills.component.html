@@ -1,14 +1,46 @@
-<section class="pl-4 pr-4 pt-3 mb-4 card flex flex-column align-items-center">
-
-
-
-    <div class="mb-3 flex">
-        <button pButton type="button" [label]="isExpanded ? 'Collapse all' : 'Expand all'" (click)="toggleTree()"
-            class="toggle-btn border-round-2xl shadow-none"
-            pTooltip="{{isExpanded ? 'Collapse all skill categories' : 'Expand all skill categories'}}"
-            tooltipPosition="bottom" tooltipStyleClass="custom-tooltip"></button>
+<section class="skills-section p-4">
+    <!-- Loading State -->
+    <div *ngIf="loading" class="loading-container">
+        <p-progressSpinner strokeWidth="4" [style]="{width: '50px', height: '50px'}"></p-progressSpinner>
+        <p class="loading-text">Loading skills...</p>
     </div>
-    <p-tree [value]="files" class="w-full"></p-tree>
 
+    <!-- Error State -->
+    <div *ngIf="error" class="error-container">
+        <p-message severity="error" [text]="error"></p-message>
+        <button pButton label="Retry" icon="pi pi-refresh" (click)="retryLoading()" class="p-button-outlined"></button>
+    </div>
 
+    <!-- Skills Content -->
+    <div *ngIf="!loading && !error" class="skills-content">
+        <div *ngFor="let category of skillCategories" class="skill-category">
+            <h2 class="category-title">{{category.name}}</h2>
+            <div class="skills-grid">
+                <div *ngFor="let skill of category.skills" class="skill-card">
+                    <div class="skill-header">
+                        <i [class]="skill.icon"></i>
+                        <h3>{{skill.name}}</h3>
+                    </div>
+                    <div class="skill-level">
+                        <div class="level-bars">
+                            <div *ngFor="let i of [1,2,3,4,5]" class="level-bar" [class.active]="i <= skill.level">
+                            </div>
+                        </div>
+                        <span class="level-text">{{getLevelText(skill.level)}}</span>
+                    </div>
+                    <p class="skill-description">{{skill.description}}</p>
+                    <div class="skill-stats">
+                        <div class="stat">
+                            <i class="pi pi-calendar"></i>
+                            <span>{{skill.yearsOfExperience}} years</span>
+                        </div>
+                        <div class="stat">
+                            <i class="pi pi-folder"></i>
+                            <span>{{skill.projects}} projects</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
