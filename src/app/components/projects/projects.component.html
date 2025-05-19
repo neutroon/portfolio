@@ -1,18 +1,18 @@
 <section class="projects-section p-4" @fadeInUp>
   <!-- Projects Grid -->
   <div class="projects-grid" @staggerIn>
-    <div *ngFor="let project of projects" class="project-item" [class.featured]="project.featured"
+    <div *ngFor="let project of projects" class="project-item" (click)="openProjectDetails(project.id)"
       (mouseenter)="onProjectHover(project.id)" (mouseleave)="onProjectLeave()" @fadeInUp>
       <!-- Project Image -->
       <div class="project-image" @scaleIn>
-        <img [src]="project.image" [alt]="project.title" loading="lazy">
-        <div class="project-overlay">
+        <img [src]="project.images[0]" [alt]="project.title" loading="lazy">
+        <div class="project-overlay" [class.show]="hoveredProject === project.id">
           <div class="project-actions">
-            <a *ngIf="project.liveUrl" [href]="project.liveUrl" target="_blank" class="action-btn"
+            <a [href]="project.demoLink" target="_blank" class="action-btn" (click)="$event.stopPropagation()"
               pTooltip="View Live Demo">
               <i class="pi pi-external-link"></i>
             </a>
-            <a *ngIf="project.githubUrl" [href]="project.githubUrl" target="_blank" class="action-btn"
+            <a [href]="project.sourceLink" target="_blank" class="action-btn" (click)="$event.stopPropagation()"
               pTooltip="View Source Code">
               <i class="pi pi-github"></i>
             </a>
