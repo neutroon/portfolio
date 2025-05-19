@@ -1,94 +1,214 @@
-@media screen and (min-width: 900px) {
-  .navbar {
-    margin: 0 1rem 0 1rem;
-    border-radius: 1rem;
+// Variables
+$gradient-primary: linear-gradient(
+  45deg,
+  #f09433 0%,
+  #e6683c 25%,
+  #dc2743 50%,
+  #cc2366 75%,
+  #bc1888 100%
+);
+$gradient-secondary: linear-gradient(
+  45deg,
+  #405de6,
+  #5851db,
+  #833ab4,
+  #c13584,
+  #e1306c,
+  #fd1d1d
+);
+$gradient-tertiary: linear-gradient(45deg, #ffdc80, #fcaf45, #f77737);
+
+// Mixins
+@mixin gradient-text {
+  background: $gradient-primary;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: gradient-shift 3s ease infinite;
+}
+
+@mixin gradient-border {
+  position: relative;
+  &::before {
+    content: "";
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: $gradient-primary;
+    border-radius: inherit;
+    z-index: -1;
+    animation: gradient-shift 3s ease infinite;
   }
 }
 
-.pi-chevron-circle-down {
-  font-size: 1.3rem;
-}
-
-.active-link::after {
-  content: "";
-  position: absolute;
-  width: 1.3rem;
-  height: 0.5rem;
-  border-radius: 0 0 5px 5px;
-  background-color: black;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-}
-.active-link {
-  color: black !important;
-}
-
-.about {
-  transition: ease-out 0.3s all;
-
-  .icon {
-    width: 1.5rem;
-    height: 1.5rem;
-    left: 80%;
-    top: 80%;
+// Animations
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
   }
-  figure {
-    background-image: linear-gradient(
-      135deg,
-      #f9ce34 25%,
-      #ee2a7b 66%,
-      #6228d7 99%
-    );
-    img {
-      border: transparent 0.125rem solid;
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.profile-nav {
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 1rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.5s ease-out;
+
+  .profile-header {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 2rem;
+
+    .profile-image {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      overflow: hidden;
+      @include gradient-border;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 50%;
+      }
+    }
+
+    .profile-info {
+      flex: 1;
+
+      h2 {
+        @include gradient-text;
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
+      }
+
+      p {
+        color: #666;
+        margin-bottom: 1rem;
+      }
+
+      .profile-stats {
+        display: flex;
+        gap: 2rem;
+        margin-bottom: 1rem;
+
+        .stat {
+          text-align: center;
+
+          .stat-value {
+            @include gradient-text;
+            font-size: 1.5rem;
+            font-weight: bold;
+          }
+
+          .stat-label {
+            color: #666;
+            font-size: 0.9rem;
+          }
+        }
+      }
+
+      .follow-btn {
+        background: $gradient-primary;
+        border: none;
+        color: white;
+        padding: 0.5rem 1.5rem;
+        border-radius: 2rem;
+        cursor: pointer;
+        transition: transform 0.2s ease;
+
+        &:hover {
+          transform: scale(1.05);
+        }
+      }
+    }
+  }
+
+  .profile-nav-links {
+    display: flex;
+    gap: 1rem;
+    border-top: 1px solid #eee;
+    padding-top: 1rem;
+
+    .nav-link {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #666;
+      text-decoration: none;
+      padding: 0.5rem 1rem;
+      border-radius: 2rem;
+      transition: all 0.3s ease;
+
+      i {
+        font-size: 1.2rem;
+      }
+
+      &:hover {
+        background: rgba(0, 0, 0, 0.05);
+        color: #000;
+      }
+
+      &.active {
+        @include gradient-text;
+        color: black !important;
+        background: rgba(0, 0, 0, 0.05);
+      }
     }
   }
 }
-.nav-link {
-  position: relative;
-  padding-top: 1rem;
-}
 
-.links {
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-  &::-webkit-scrollbar {
-    display: none;
-  }
-  figure {
-    min-width: 5rem;
-  }
-}
+// Responsive Design
+@media (max-width: 768px) {
+  .profile-nav {
+    padding: 1rem;
 
-.contacts {
-  .contact-btn {
-    background-image: linear-gradient(
-      135deg,
-      #f9ce34 25%,
-      #ee2a7b 66%,
-      #6228d7 99%
-    );
-    border: none;
-    border-radius: 10px;
-    color: white;
-    transition: all 0.3s ease-in-out;
-    background-size: 100% 100%;
-  }
-  .contact-btn:hover {
-    background-size: 300% 100%;
-    background-position: -100px;
-  }
-  button:active {
-    transform: translateY(5px);
-  }
-}
+    .profile-header {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
 
-.nav {
-  box-shadow: 0px 1px 5px -4px black inset;
-}
+      .profile-image {
+        width: 120px;
+        height: 120px;
+      }
 
-#setting {
-  transform: translateY(-120%);
-  transition: all 0.3s ease-in-out;
+      .profile-stats {
+        justify-content: center;
+      }
+    }
+
+    .profile-nav-links {
+      flex-wrap: wrap;
+      justify-content: center;
+
+      .nav-link {
+        flex: 1;
+        min-width: 120px;
+        justify-content: center;
+      }
+    }
+  }
 }

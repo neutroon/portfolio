@@ -1,0 +1,269 @@
+// Variables
+$card-transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+  box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+$fade-in-duration: 0.5s;
+$stagger-delay: 0.1s;
+
+// Instagram-inspired gradients
+$gradient-primary: linear-gradient(
+  45deg,
+  #f09433 0%,
+  #e6683c 25%,
+  #dc2743 50%,
+  #cc2366 75%,
+  #bc1888 100%
+);
+$gradient-secondary: linear-gradient(
+  45deg,
+  #405de6,
+  #5851db,
+  #833ab4,
+  #c13584,
+  #e1306c,
+  #fd1d1d
+);
+$gradient-tertiary: linear-gradient(45deg, #ffdc80, #fcaf45, #f77737);
+
+// Mixins
+@mixin gradient-text {
+  background: $gradient-primary;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: gradient-shift 3s ease infinite;
+}
+
+@mixin hover-scale {
+  transform: scale(1.05);
+  transition: transform 0.3s ease;
+}
+
+// Animations
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.projects-section {
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-bottom: 2rem;
+
+    .project-item {
+      position: relative;
+      aspect-ratio: 1;
+      border-radius: 0.5rem;
+      overflow: hidden;
+      background: #fff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      transition: $card-transition;
+
+      &.featured::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border: 2px solid transparent;
+        background: $gradient-primary;
+        border-radius: 0.5rem;
+        z-index: 1;
+        animation: gradient-shift 3s ease infinite;
+      }
+
+      .project-image {
+        position: relative;
+        width: 100%;
+        height: 100%;
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          transition: transform 0.3s ease;
+        }
+
+        .project-overlay {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: rgba(0, 0, 0, 0.5);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          opacity: 0;
+          transition: opacity 0.3s ease;
+
+          .project-actions {
+            display: flex;
+            gap: 1rem;
+
+            .action-btn {
+              width: 40px;
+              height: 40px;
+              border-radius: 50%;
+              background: white;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              color: #000;
+              text-decoration: none;
+              transition: transform 0.2s ease;
+
+              &:hover {
+                @include hover-scale;
+              }
+
+              i {
+                font-size: 1.2rem;
+              }
+            }
+          }
+        }
+
+        .project-badge {
+          position: absolute;
+          top: 1rem;
+          right: 1rem;
+          width: 30px;
+          height: 30px;
+          border-radius: 50%;
+          background: $gradient-primary;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: white;
+          z-index: 2;
+          animation: gradient-shift 3s ease infinite;
+
+          i {
+            font-size: 1rem;
+          }
+        }
+
+        .project-stats {
+          position: absolute;
+          bottom: 1rem;
+          left: 1rem;
+          display: flex;
+          gap: 1rem;
+          color: white;
+          z-index: 2;
+
+          .stat {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 0.25rem 0.75rem;
+            border-radius: 1rem;
+
+            i {
+              font-size: 1rem;
+            }
+
+            span {
+              font-size: 0.9rem;
+            }
+          }
+        }
+      }
+
+      .project-info {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 1rem;
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+        color: white;
+        transform: translateY(100%);
+        transition: transform 0.3s ease;
+
+        h3 {
+          margin: 0;
+          font-size: 1rem;
+          color: white;
+        }
+
+        .technologies {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 0.5rem;
+          margin-top: 0.5rem;
+
+          .tech-tag {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 0.2rem 0.5rem;
+            border-radius: 1rem;
+            font-size: 0.8rem;
+          }
+        }
+      }
+
+      &:hover {
+        .project-overlay {
+          opacity: 1;
+        }
+
+        .project-info {
+          transform: translateY(0);
+        }
+
+        img {
+          @include hover-scale;
+        }
+      }
+    }
+  }
+}
+
+// Responsive Design
+@media screen and (max-width: 768px) {
+  .projects-section {
+    padding: 1rem !important;
+
+    .projects-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.5rem;
+
+      .project-item {
+        .project-info {
+          padding: 0.75rem;
+
+          h3 {
+            font-size: 0.9rem;
+          }
+
+          .technologies {
+            .tech-tag {
+              font-size: 0.7rem;
+              padding: 0.15rem 0.4rem;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .projects-section {
+    .projects-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+}

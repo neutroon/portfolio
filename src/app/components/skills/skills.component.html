@@ -3,8 +3,10 @@
 
 
     <div class="mb-3 flex">
-        <button pButton type="button" label="Expand all" (click)="expandAll()" class="mr-2"></button>
-        <button pButton type="button" label="Collapse all" (click)="collapseAll()"></button>
+        <button pButton type="button" [label]="isExpanded ? 'Collapse all' : 'Expand all'" (click)="toggleTree()"
+            class="toggle-btn border-round-2xl shadow-none"
+            pTooltip="{{isExpanded ? 'Collapse all skill categories' : 'Expand all skill categories'}}"
+            tooltipPosition="bottom" tooltipStyleClass="custom-tooltip"></button>
     </div>
     <p-tree [value]="files" class="w-full"></p-tree>
 

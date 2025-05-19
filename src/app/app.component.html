@@ -1,13 +1,38 @@
-<profile-nav></profile-nav>
-<router-outlet></router-outlet>
+<div class="app-container">
+  <!-- Instagram-style Navigation (Tablet and Desktop) -->
+  <nav class="instagram-nav">
+    <div class="nav-content">
+      <div class="nav-brand" routerLink="/profile">
+        <img src="assets/images/profile.jpg" alt="Profile Picture" class="nav-profile-img">
+        <span class="brand-name">Hesham Mansour</span>
+      </div>
+      <div class="nav-links">
+        <a routerLink="/projects" routerLinkActive="active" class="nav-link">
+          <i class="pi pi-images"></i>
+          <span>Projects</span>
+        </a>
+        <a routerLink="/experience" routerLinkActive="active" class="nav-link">
+          <i class="pi pi-briefcase"></i>
+          <span>Experience</span>
+        </a>
+        <a routerLink="/skills" routerLinkActive="active" class="nav-link">
+          <i class="pi pi-star"></i>
+          <span>Skills</span>
+        </a>
+      </div>
+    </div>
+  </nav>
 
+  <!-- Mobile Navigation -->
+  <profile-nav></profile-nav>
 
+  <!-- Main Content with Route Transitions -->
+  <main class="main-content">
+    <app-route-transition>
+      <router-outlet></router-outlet>
+    </app-route-transition>
+  </main>
 
-<div
-  class="hideDesktopView fixed top-0 left-0 right-0 bottom-0 flex flex-column justify-content-center align-items-center text-white">
-
-  <h2>Open website in your phone</h2>
-  <p>if your mobile in landscape view please rotate it</p>
-  <p>Not Ready for Desktop view yet...</p>
-
+  <!-- Booking Button -->
+  <app-booking-button></app-booking-button>
 </div>
