@@ -84,7 +84,8 @@ export class ProjectsComponent {
       title: 'Portfolio Website',
       description:
         'A modern portfolio website built with Angular and PrimeNG, featuring a responsive design and smooth animations.',
-      image: 'assets/images/projects/portfolio.jpg',
+      image:
+        'https://99designs-blog.imgix.net/blog/wp-content/uploads/2021/01/abstract-website-copy.jpg?auto=format&q=60&fit=max&w=930',
       technologies: ['Angular', 'PrimeNG', 'SCSS', 'TypeScript'],
       liveUrl: 'https://portfolio.example.com',
       githubUrl: 'https://github.com/username/portfolio',
@@ -97,7 +98,8 @@ export class ProjectsComponent {
       title: 'E-commerce Platform',
       description:
         'A full-stack e-commerce platform with real-time inventory management and secure payment processing.',
-      image: 'assets/images/projects/ecommerce.jpg',
+      image:
+        'https://media.geeksforgeeks.org/wp-content/cdn-uploads/20210401151214/What-is-Website.png',
       technologies: ['React', 'Node.js', 'MongoDB', 'Stripe'],
       liveUrl: 'https://shop.example.com',
       githubUrl: 'https://github.com/username/ecommerce',
@@ -110,7 +112,8 @@ export class ProjectsComponent {
       title: 'Task Management App',
       description:
         'A collaborative task management application with real-time updates and team collaboration features.',
-      image: 'assets/images/projects/taskmanager.jpg',
+      image:
+        'https://www.sitesaga.com/wp-content/uploads/2020/04/what-is-website-how-it-works.png',
       technologies: ['Vue.js', 'Firebase', 'Tailwind CSS'],
       liveUrl: 'https://tasks.example.com',
       githubUrl: 'https://github.com/username/taskmanager',

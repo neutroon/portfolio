@@ -38,19 +38,6 @@ $gradient-tertiary: linear-gradient(45deg, #ffdc80, #fcaf45, #f77737);
   transition: transform 0.3s ease;
 }
 
-// Animations
-@keyframes gradient-shift {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
 .projects-section {
   .projects-grid {
     display: grid;
@@ -67,20 +54,15 @@ $gradient-tertiary: linear-gradient(45deg, #ffdc80, #fcaf45, #f77737);
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       transition: $card-transition;
 
-      &.featured::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        border: 2px solid transparent;
-        background: $gradient-primary;
-        border-radius: 0.5rem;
-        z-index: 1;
-        animation: gradient-shift 3s ease infinite;
+      &:hover .project-image .project-overlay {
+        opacity: 1;
       }
-
+      .project-stats {
+        transition: 0.3s transform ease;
+      }
+      &:hover .project-stats {
+        transform: translateY(60px);
+      }
       .project-image {
         position: relative;
         width: 100%;
@@ -99,7 +81,7 @@ $gradient-tertiary: linear-gradient(45deg, #ffdc80, #fcaf45, #f77737);
           left: 0;
           right: 0;
           bottom: 0;
-          background: rgba(0, 0, 0, 0.5);
+          background: $gradient-primary;
           display: flex;
           align-items: center;
           justify-content: center;
