@@ -1,9 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
 import { TooltipModule } from 'primeng/tooltip';
 import { DividerModule } from 'primeng/divider';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { MessageModule } from 'primeng/message';
 import {
   trigger,
   transition,
@@ -14,19 +16,8 @@ import {
   state,
 } from '@angular/animations';
 import { RouterModule, Router } from '@angular/router';
-
-interface Project {
-  id: number;
-  title: string;
-  description: string;
-  images: string[];
-  technologies: string[];
-  demoLink: string;
-  sourceLink: string;
-  featured?: boolean;
-  likes?: number;
-  comments?: number;
-}
+import { ProjectService, Project } from '../../services/project.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-projects',
@@ -38,6 +29,8 @@ interface Project {
     TooltipModule,
     DividerModule,
     RouterModule,
+    ProgressSpinnerModule,
+    MessageModule,
   ],
   templateUrl: './projects.component.html',
   styleUrl: './projects.component.scss',
@@ -79,39 +72,36 @@ interface Project {
     ]),
   ],
 })
-export class ProjectsComponent {
+export class ProjectsComponent implements OnInit, OnDestroy {
   hoveredProject: number | null = null;
-  projects: Project[] = [
-    {
-      id: 1,
-      title: 'Project 1',
-      description: 'Description of project 1',
-      images: [
-        'https://99designs-blog.imgix.net/blog/wp-content/uploads/2021/01/abstract-website-copy.jpg?auto=format&q=60&fit=max&w=930',
-      ],
-      technologies: ['Angular', 'TypeScript', 'SCSS'],
-      demoLink: 'https://demo1.com',
-      sourceLink: 'https://github.com/project1',
-      featured: true,
-      likes: 120,
-      comments: 15,
-    },
-    {
-      id: 2,
-      title: 'Project 2',
-      description: 'Description of project 2',
-      images: [
-        'https://media.geeksforgeeks.org/wp-content/cdn-uploads/20210401151214/What-is-Website.png',
-      ],
-      technologies: ['React', 'Node.js', 'MongoDB'],
-      demoLink: 'https://demo2.com',
-      sourceLink: 'https://github.com/project2',
-      likes: 85,
-      comments: 8,
-    },
-  ];
+  projects: Project[] = [];
+  loading = true;
+  error: string | null = null;
+  private subscriptions: Subscription[] = [];
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private projectService: ProjectService) {}
+
+  ngOnInit() {
+    this.loadProjects();
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach((sub) => sub.unsubscribe());
+  }
+
+  loadProjects() {
+    const sub = this.projectService.getProjects().subscribe({
+      next: (projects) => {
+        this.projects = projects;
+        this.loading = false;
+      },
+      error: (error) => {
+        this.error = 'Failed to load projects. Please try again later.';
+        this.loading = false;
+      },
+    });
+    this.subscriptions.push(sub);
+  }
 
   openProjectDetails(projectId: number): void {
     this.router.navigate(['/projects', projectId]);
@@ -132,5 +122,10 @@ export class ProjectsComponent {
   getTotalTechnologies(): number {
     const uniqueTechs = new Set(this.projects.flatMap((p) => p.technologies));
     return uniqueTechs.size;
+  }
+
+  retryLoading() {
+    this.error = null;
+    this.loadProjects();
   }
 }

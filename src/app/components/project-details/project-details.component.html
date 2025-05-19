@@ -1,50 +1,65 @@
 <div class="project-details-container">
+  <!-- Loading State -->
+  <div *ngIf="loading" class="loading-container">
+    <p-progressSpinner strokeWidth="4" [style]="{width: '50px', height: '50px'}"></p-progressSpinner>
+    <p class="loading-text">Loading project details...</p>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="error" class="error-container">
+    <p-message severity="error" [text]="error"></p-message>
+    <button pButton label="Retry" icon="pi pi-refresh" (click)="retryLoading()" class="p-button-outlined"></button>
+  </div>
+
+  <!-- Project Content -->
+  <div *ngIf="!loading && !error" class="project-content">
     <!-- Close Button -->
     <button class="close-btn" (click)="closeProject()">
-        <i class="pi pi-times"></i>
+      <i class="pi pi-times"></i>
     </button>
 
     <!-- Navigation Dots -->
     <div class="navigation-dots">
-        <div *ngFor="let project of projects; let i = index" [class.active]="i === currentProjectIndex"
-            (click)="scrollToProject(i)" class="dot">
-        </div>
+      <div *ngFor="let project of projects; let i = index" [class.active]="i === currentProjectIndex"
+        (click)="scrollToProject(i)" class="dot">
+      </div>
     </div>
 
     <!-- Projects Scroll Container -->
     <div class="projects-scroll">
-        <div *ngFor="let project of projects; let i = index" [id]="'project-' + i" class="project-section">
-            <div class="project-content">
-                <!-- Project Images -->
-                <div class="project-images">
-                    <img [src]="project.images[0]" [alt]="project.title">
-                </div>
+      <div *ngFor="let project of projects; let i = index" [id]="'project-' + i" class="project-section">
+        <div class="project-content">
+          <!-- Project Images -->
+          <div class="project-images">
+            <img *ngFor="let image of project.images" [src]="image" [alt]="project.title + ' image'">
+          </div>
 
-                <!-- Project Details -->
-                <div class="project-info">
-                    <h1>{{ project.title }}</h1>
-                    <p class="description">{{ project.description }}</p>
+          <!-- Project Details -->
+          <div class="project-info">
+            <h2>{{ project.title }}</h2>
+            <p class="description">{{ project.description }}</p>
 
-                    <!-- Technologies -->
-                    <div class="technologies">
-                        <span *ngFor="let tech of project.technologies" class="tech-tag">
-                            {{ tech }}
-                        </span>
-                    </div>
-
-                    <!-- Action Buttons -->
-                    <div class="action-buttons">
-                        <a [href]="project.demoLink" target="_blank" class="demo-btn">
-                            <i class="pi pi-external-link"></i>
-                            Live Demo
-                        </a>
-                        <a [href]="project.sourceLink" target="_blank" class="source-btn">
-                            <i class="pi pi-github"></i>
-                            Source Code
-                        </a>
-                    </div>
-                </div>
+            <!-- Technologies -->
+            <div class="technologies">
+              <span *ngFor="let tech of project.technologies" class="tech-tag">
+                {{ tech }}
+              </span>
             </div>
+
+            <!-- Action Buttons -->
+            <div class="project-actions">
+              <a [href]="project.demoLink" target="_blank" class="action-btn">
+                <i class="pi pi-external-link"></i>
+                View Live Demo
+              </a>
+              <a [href]="project.sourceLink" target="_blank" class="action-btn">
+                <i class="pi pi-github"></i>
+                View Source Code
+              </a>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </div>

@@ -2,53 +2,36 @@ import { Component, OnInit, HostListener, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, ActivatedRoute, Router } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
-
-interface Project {
-  id: number;
-  title: string;
-  description: string;
-  images: string[];
-  technologies: string[];
-  demoLink: string;
-  sourceLink: string;
-}
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { MessageModule } from 'primeng/message';
+import { ProjectService, Project } from '../../services/project.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-project-details',
   standalone: true,
-  imports: [CommonModule, RouterModule, ButtonModule],
+  imports: [
+    CommonModule,
+    RouterModule,
+    ButtonModule,
+    ProgressSpinnerModule,
+    MessageModule,
+  ],
   templateUrl: './project-details.component.html',
   styleUrls: ['./project-details.component.scss'],
 })
 export class ProjectDetailsComponent implements OnInit, OnDestroy {
   currentProjectIndex = 0;
-  projects: Project[] = [
-    {
-      id: 1,
-      title: 'Project 1',
-      description: 'Description for project 1',
-      images: [
-        'https://media.geeksforgeeks.org/wp-content/cdn-uploads/20210401151214/What-is-Website.png',
-      ],
-      technologies: ['Angular', 'TypeScript', 'SCSS'],
-      demoLink: 'https://demo1.com',
-      sourceLink: 'https://github.com/...',
-    },
-    {
-      id: 2,
-      title: 'Project 2',
-      description: 'Description for project 2',
-      images: [
-        'https://99designs-blog.imgix.net/blog/wp-content/uploads/2021/01/abstract-website-copy.jpg?auto=format&q=60&fit=max&w=930',
-      ],
-      technologies: ['React', 'Node.js', 'MongoDB'],
-      demoLink: 'https://demo2.com',
-      sourceLink: 'https://github.com/...',
-    },
-    // Add more projects here
-  ];
+  projects: Project[] = [];
+  loading = true;
+  error: string | null = null;
+  private subscriptions: Subscription[] = [];
 
-  constructor(private route: ActivatedRoute, private router: Router) {}
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private projectService: ProjectService
+  ) {}
 
   @HostListener('wheel', ['$event'])
   onScroll(event: WheelEvent) {
@@ -111,21 +94,56 @@ export class ProjectDetailsComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     // Get project ID from route and set current project
-    this.route.params.subscribe((params) => {
+    const sub = this.route.params.subscribe((params) => {
       const projectId = +params['id'];
-      const index = this.projects.findIndex((p) => p.id === projectId);
-      if (index !== -1) {
-        this.currentProjectIndex = index;
-        this.scrollToProject(index);
-      }
+      this.loadProject(projectId);
     });
-
+    this.subscriptions.push(sub);
+    this.loadAllProjects();
     // Add scroll snap behavior
     document.body.style.overflow = 'hidden';
   }
 
+  loadAllProjects(): void {
+    this.projectService.getProjects().subscribe({
+      next: (projects) => {
+        this.projects = projects;
+      },
+      error: (error) => {
+        this.error = 'Failed to load project details. Please try again later.';
+        this.loading = false;
+        return [];
+      },
+    });
+  }
+  loadProject(projectId: number) {
+    const sub = this.projectService.getProjectById(projectId).subscribe({
+      next: (project) => {
+        if (project) {
+          // this.projects = [project];
+          this.currentProjectIndex = 0;
+          this.loading = false;
+        } else {
+          this.error = 'Project not found';
+          this.loading = false;
+        }
+      },
+      error: (error) => {
+        this.error = 'Failed to load project details. Please try again later.';
+        this.loading = false;
+      },
+    });
+    this.subscriptions.push(sub);
+  }
+
+  retryLoading() {
+    this.error = null;
+    const projectId = +this.route.snapshot.params['id'];
+    this.loadProject(projectId);
+  }
+
   ngOnDestroy() {
-    // Reset body overflow
+    this.subscriptions.forEach((sub) => sub.unsubscribe());
     document.body.style.overflow = '';
   }
 }

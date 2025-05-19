@@ -38,6 +38,41 @@ $gradient-tertiary: linear-gradient(45deg, #ffdc80, #fcaf45, #f77737);
   transition: transform 0.3s ease;
 }
 
+// Loading and Error States
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+  gap: 1rem;
+
+  .loading-text {
+    color: #666;
+    font-size: 1.1rem;
+    margin: 0;
+  }
+}
+
+.error-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+  gap: 1rem;
+  padding: 1rem;
+
+  ::ng-deep .p-message {
+    width: 100%;
+    max-width: 500px;
+  }
+
+  .p-button {
+    margin-top: 1rem;
+  }
+}
+
 .projects-section {
   .projects-grid {
     display: grid;

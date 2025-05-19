@@ -1,6 +1,18 @@
 <section class="projects-section p-4" @fadeInUp>
+  <!-- Loading State -->
+  <div *ngIf="loading" class="loading-container">
+    <p-progressSpinner strokeWidth="4" [style]="{width: '50px', height: '50px'}"></p-progressSpinner>
+    <p class="loading-text">Loading projects...</p>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="error" class="error-container">
+    <p-message severity="error" [text]="error"></p-message>
+    <button pButton label="Retry" icon="pi pi-refresh" (click)="retryLoading()" class="p-button-outlined"></button>
+  </div>
+
   <!-- Projects Grid -->
-  <div class="projects-grid" @staggerIn>
+  <div *ngIf="!loading && !error" class="projects-grid" @staggerIn>
     <div *ngFor="let project of projects" class="project-item" (click)="openProjectDetails(project.id)"
       (mouseenter)="onProjectHover(project.id)" (mouseleave)="onProjectLeave()" @fadeInUp>
       <!-- Project Image -->
