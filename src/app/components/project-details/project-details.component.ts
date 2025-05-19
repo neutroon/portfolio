@@ -26,6 +26,8 @@ export class ProjectDetailsComponent implements OnInit, OnDestroy {
   loading = true;
   error: string | null = null;
   private subscriptions: Subscription[] = [];
+  private isScrolling = false;
+  private scrollTimeout: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -36,6 +38,8 @@ export class ProjectDetailsComponent implements OnInit, OnDestroy {
   @HostListener('wheel', ['$event'])
   onScroll(event: WheelEvent) {
     event.preventDefault();
+    if (this.isScrolling) return;
+
     if (event.deltaY > 0) {
       this.scrollToNextProject();
     } else {
@@ -45,6 +49,8 @@ export class ProjectDetailsComponent implements OnInit, OnDestroy {
 
   @HostListener('keydown', ['$event'])
   onKeyDown(event: KeyboardEvent) {
+    if (this.isScrolling) return;
+
     switch (event.key) {
       case 'ArrowDown':
         this.scrollToNextProject();
@@ -59,7 +65,10 @@ export class ProjectDetailsComponent implements OnInit, OnDestroy {
   }
 
   scrollToNextProject() {
-    if (this.currentProjectIndex < this.projects.length - 1) {
+    if (
+      this.currentProjectIndex < this.projects.length - 1 &&
+      !this.isScrolling
+    ) {
       this.currentProjectIndex++;
       this.scrollToProject(this.currentProjectIndex);
       this.updateRoute();
@@ -67,7 +76,7 @@ export class ProjectDetailsComponent implements OnInit, OnDestroy {
   }
 
   scrollToPreviousProject() {
-    if (this.currentProjectIndex > 0) {
+    if (this.currentProjectIndex > 0 && !this.isScrolling) {
       this.currentProjectIndex--;
       this.scrollToProject(this.currentProjectIndex);
       this.updateRoute();
@@ -75,9 +84,24 @@ export class ProjectDetailsComponent implements OnInit, OnDestroy {
   }
 
   scrollToProject(index: number) {
+    if (this.isScrolling) return;
+
+    this.isScrolling = true;
     const projectElement = document.getElementById(`project-${index}`);
     if (projectElement) {
       projectElement.scrollIntoView({ behavior: 'smooth' });
+
+      // Clear any existing timeout
+      if (this.scrollTimeout) {
+        clearTimeout(this.scrollTimeout);
+      }
+
+      // Set a timeout to re-enable scrolling after animation completes
+      this.scrollTimeout = setTimeout(() => {
+        this.isScrolling = false;
+      }, 800); // Adjust this value to match your desired scroll duration
+    } else {
+      this.isScrolling = false;
     }
   }
 
@@ -89,10 +113,13 @@ export class ProjectDetailsComponent implements OnInit, OnDestroy {
   }
 
   closeProject() {
-    this.router.navigate(['/projects']);
+    this.router.navigate(['/projects'], {
+      replaceUrl: true,
+    });
   }
 
   ngOnInit() {
+    console.log('should navigate');
     // Get project ID from route and set current project
     const sub = this.route.params.subscribe((params) => {
       const projectId = +params['id'];
