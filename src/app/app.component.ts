@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet, RouterModule } from '@angular/router';
 import { ProfileNavComponent } from './components/profile-nav/profile-nav.component';
-import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
 import { BookingButtonComponent } from './components/booking-button/booking-button.component';
 import { RouteTransitionComponent } from './components/route-transition/route-transition.component';
 
@@ -19,8 +18,6 @@ import { RouteTransitionComponent } from './components/route-transition/route-tr
   styleUrl: './app.component.scss',
 })
 export class AppComponent implements OnInit {
-  constructor(private _TranslateService: TranslateService) {}
-
   blackBackground = [
     'font-size: 38px',
     'background-color: #000',
@@ -53,9 +50,5 @@ export class AppComponent implements OnInit {
         this.lastConsole
       );
     }, 3000);
-
-    this._TranslateService.onLangChange.subscribe((event: LangChangeEvent) => {
-      console.log('lang changed to ' + event.lang);
-    });
   }
 }

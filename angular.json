@@ -53,16 +53,6 @@
             "styles": [
               "./node_modules/normalize.css/normalize.css",
               "src/styles.scss",
-              {
-                "input": "src/lara-light-blue.scss",
-                "bundleName": "lara-light-blue",
-                "inject": false
-              },
-              {
-                "input": "src/lara-dark-blue.scss",
-                "bundleName": "lara-dark-blue",
-                "inject": false
-              },
               "./node_modules/primeng/resources/primeng.min.css",
               "./node_modules/primeflex/primeflex.css",
               "./node_modules/primeicons/primeicons.css"
