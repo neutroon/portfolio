@@ -99,84 +99,113 @@ export class FollowService {
     }
   }
 
-  private async showWelcomeNotification(): Promise<void> {
-    if ('Notification' in window && Notification.permission === 'granted') {
-      try {
-        console.log('Showing welcome notification...');
-        const notificationOptions: NotificationOptions = {
-          body: 'You will now receive updates about my latest projects and achievements.',
-          icon: this.ICON_PATH,
-          badge: this.ICON_PATH,
-          silent: false,
-          requireInteraction: true,
-          tag: 'portfolio-welcome',
-        };
-
-        // Add timestamp for Chrome
-        if (this.isChrome()) {
-          notificationOptions.timestamp = Date.now();
-        }
-
-        const notification = new Notification(
-          'Welcome to My Portfolio!',
-          notificationOptions
-        );
-
-        notification.onclick = () => {
-          console.log('Welcome notification clicked');
-          window.focus();
-          notification.close();
-        };
-      } catch (error) {
-        console.error('Error showing welcome notification:', error);
-      }
-    }
-  }
-
-  async sendUpdateNotification(title: string, body: string): Promise<void> {
-    console.log('Attempting to send update notification...');
-    console.log('Notification permission:', Notification.permission);
-    console.log(
-      'Is following:',
-      localStorage.getItem(this.STORAGE_KEY) === 'true'
-    );
-    console.log('Browser:', navigator.userAgent);
-
-    if ('Notification' in window && Notification.permission === 'granted') {
-      const followers = localStorage.getItem(this.STORAGE_KEY) === 'true';
-      if (followers) {
+  private showWelcomeNotification() {
+    this.notificationPermission$.subscribe((permission) => {
+      if (permission) {
         try {
-          console.log('Creating notification with icon:', this.ICON_PATH);
-          const notificationOptions: NotificationOptions = {
-            body,
+          const notification = new Notification('Welcome to My Portfolio!', {
+            body: "Thank you for following me. You'll receive updates about my latest projects and achievements.",
             icon: this.ICON_PATH,
             badge: this.ICON_PATH,
-            silent: false,
+            tag: 'welcome',
             requireInteraction: true,
-            tag: 'portfolio-update',
-          };
+            silent: false,
+            data: {
+              url: window.location.href,
+            },
+          });
 
-          // Add timestamp for Chrome
-          if (this.isChrome()) {
-            notificationOptions.timestamp = Date.now();
-          }
+          // Add custom styling through CSS
+          const style = document.createElement('style');
+          style.textContent = `
+            .notification {
+              background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.98) 100%);
+              border-radius: 12px;
+              box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+              border: 1px solid rgba(220, 39, 67, 0.1);
+              backdrop-filter: blur(10px);
+              padding: 16px;
+              margin: 8px;
+              max-width: 400px;
+              font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            }
 
-          const notification = new Notification(title, notificationOptions);
+            .notification-title {
+              color: #333;
+              font-size: 16px;
+              font-weight: 600;
+              margin-bottom: 8px;
+              background: linear-gradient(45deg, #f09433, #dc2743);
+              -webkit-background-clip: text;
+              -webkit-text-fill-color: transparent;
+            }
+
+            .notification-body {
+              color: #666;
+              font-size: 14px;
+              line-height: 1.4;
+            }
+
+            .notification-actions {
+              margin-top: 12px;
+              display: flex;
+              gap: 8px;
+            }
+
+            .notification-button {
+              background: linear-gradient(45deg, #f09433, #dc2743);
+              color: white;
+              border: none;
+              padding: 8px 16px;
+              border-radius: 20px;
+              font-size: 14px;
+              font-weight: 500;
+              cursor: pointer;
+              transition: all 0.2s ease;
+            }
+
+            .notification-button:hover {
+              transform: translateY(-1px);
+              box-shadow: 0 4px 12px rgba(220, 39, 67, 0.2);
+            }
+          `;
+          document.head.appendChild(style);
 
           notification.onclick = () => {
-            console.log('Update notification clicked');
+            window.focus();
+            notification.close();
+          };
+        } catch (error) {
+          console.error('Error showing welcome notification:', error);
+        }
+      }
+    });
+  }
+
+  private sendUpdateNotification(update: string) {
+    this.notificationPermission$.subscribe((permission) => {
+      if (permission) {
+        try {
+          const notification = new Notification('Portfolio Update', {
+            body: update,
+            icon: this.ICON_PATH,
+            badge: this.ICON_PATH,
+            tag: 'update',
+            requireInteraction: true,
+            silent: false,
+            data: {
+              url: window.location.href,
+            },
+          });
+
+          notification.onclick = () => {
             window.focus();
             notification.close();
           };
         } catch (error) {
           console.error('Error sending update notification:', error);
-          throw error;
         }
-      } else {
-        console.log('User is not following, skipping notification');
       }
-    } else {
-      console.log('Notifications not permitted or not supported');
-    }
+    });
   }
 }
