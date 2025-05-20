@@ -182,7 +182,7 @@ export class FollowService {
     });
   }
 
-  private sendUpdateNotification(update: string) {
+  public sendUpdateNotification(update: string) {
     this.notificationPermission$.subscribe((permission) => {
       if (permission) {
         try {

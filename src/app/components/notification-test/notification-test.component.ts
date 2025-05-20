@@ -102,8 +102,7 @@ export class NotificationTestComponent {
       // Then try through the service
       console.log('Attempting to send notification through service...');
       await this.followService.sendUpdateNotification(
-        'Test Notification',
-        'This is a test notification to verify the icon and functionality.'
+        'Test Notification ,This is a test notification to verify the icon and functionality.'
       );
       console.log('Service notification sent successfully');
     } catch (error) {
